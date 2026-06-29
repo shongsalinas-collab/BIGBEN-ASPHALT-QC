@@ -33,7 +33,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .fg{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;align-items:end;}
 .fl{display:flex;flex-direction:column;gap:3px;}
 .fl label{font-size:10px;color:var(--mu);font-weight:500;}
-input,select{padding:7px 10px;border-radius:6px;border:1px solid var(--br);font-size:13px;font-family:inherit;background:var(--sf);color:#1a1a1a;width:100%;}
+input,select,textarea{padding:7px 10px;border-radius:6px;border:1px solid var(--br);font-size:13px;font-family:inherit;background:var(--sf);color:#1a1a1a;width:100%;}
 input:focus,select:focus{outline:none;border-color:var(--g);}
 .btn{padding:7px 14px;border-radius:6px;border:none;font-weight:500;font-size:13px;cursor:pointer;font-family:inherit;white-space:nowrap;}
 .bg{background:var(--g);color:#fff;}.bg:hover{background:var(--gd);}
@@ -51,8 +51,8 @@ tr:last-child td{border-bottom:none;}tr:hover td{background:#fafaf8;}
 .tft td{background:var(--s2);font-weight:500;}
 .pill{display:inline-block;padding:2px 8px;border-radius:99px;font-size:11px;font-weight:500;}
 .pam{background:var(--bl);color:#185FA5;}.ppm{background:var(--pul);color:var(--pu);}
-.pgr{background:var(--gl);color:var(--gd);}.pok{background:var(--gl);color:var(--gd);}
-.pfail{background:var(--rl);color:var(--r);}.pwarn{background:var(--al);color:var(--a);}
+.pok{background:var(--gl);color:var(--gd);}.pfail{background:var(--rl);color:var(--r);}
+.pwarn{background:var(--al);color:var(--a);}
 .knote{font-size:12px;color:var(--mu);margin-bottom:12px;padding:8px 12px;background:var(--s2);border-radius:6px;border-left:3px solid var(--g);}
 .khead{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;align-items:stretch;}
 .krate{border-radius:12px;padding:14px 20px;min-width:120px;text-align:center;}
@@ -61,6 +61,24 @@ tr:last-child td{border-bottom:none;}tr:hover td{background:#fafaf8;}
 .kstats{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
 .ks{background:var(--s2);border-radius:8px;padding:8px 12px;min-width:80px;}
 .ks-v{font-size:13px;font-weight:500;}.ks-l{font-size:10px;color:var(--mu);}
+.dg{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;margin-bottom:20px;}
+.dc{background:var(--sf);border:1px solid var(--br);border-radius:12px;padding:18px;cursor:pointer;transition:box-shadow .15s;}
+.dc:hover{box-shadow:0 2px 8px rgba(0,0,0,.08);}
+.dc-ico{font-size:18px;margin-bottom:6px;}
+.dc-lbl{font-size:12px;color:var(--mu);margin-bottom:3px;}
+.dc-rate{font-size:30px;font-weight:500;line-height:1;margin-bottom:3px;}
+.dc-note{font-size:11px;margin-bottom:8px;}
+.pb{background:var(--s2);border-radius:6px;height:7px;overflow:hidden;}
+.pbf{height:100%;transition:width .5s;}
+.dc-meta{display:flex;justify-content:space-between;font-size:11px;color:var(--mu);margin-top:4px;}
+/* Drill-down panel */
+.drill{background:var(--sf);border:1px solid var(--br);border-radius:12px;padding:16px;margin-bottom:16px;display:none;}
+.drill.open{display:block;}
+.drill-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px;}
+.drill-title{font-size:13px;font-weight:500;}
+/* On-site dynamic rows */
+.os-row{display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr 32px;gap:6px;align-items:end;padding:8px 0;border-bottom:1px solid var(--br);}
+.os-row:last-child{border-bottom:none;}
 .sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-bottom:16px;}
 .sc{background:var(--sf);border:1px solid var(--br);border-radius:12px;padding:16px;}
 .sct{font-size:14px;font-weight:500;margin-bottom:2px;}
@@ -69,28 +87,21 @@ tr:last-child td{border-bottom:none;}tr:hover td{background:#fafaf8;}
 .scst-i{background:var(--s2);border-radius:8px;padding:8px 12px;flex:1 1 70px;}
 .scst-v{font-size:14px;font-weight:500;}.scst-l{font-size:10px;color:var(--mu);}
 .mtag{display:inline-block;padding:2px 6px;border-radius:4px;background:var(--s2);color:var(--mu);font-size:11px;margin:2px 2px 0 0;}
-.dg{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;margin-bottom:20px;}
-.dc{background:var(--sf);border:1px solid var(--br);border-radius:12px;padding:18px;}
-.dc-ico{font-size:18px;margin-bottom:6px;}
-.dc-lbl{font-size:12px;color:var(--mu);margin-bottom:3px;}
-.dc-rate{font-size:30px;font-weight:500;line-height:1;margin-bottom:3px;}
-.dc-note{font-size:11px;margin-bottom:8px;}
-.pb{background:var(--s2);border-radius:6px;height:7px;overflow:hidden;}
-.pbf{height:100%;transition:width .5s;}
-.dc-meta{display:flex;justify-content:space-between;font-size:11px;color:var(--mu);margin-top:4px;}
-/* On-site dynamic rows */
-.os-row{display:grid;grid-template-columns:1fr 1fr 1fr 1fr 32px;gap:6px;align-items:end;padding:8px 0;border-bottom:1px solid var(--br);}
-.os-row:last-child{border-bottom:none;}
 .empty{text-align:center;color:#ccc;padding:28px;font-size:13px;}
 #toast{position:fixed;bottom:20px;right:20px;background:#1a1a1a;color:#fff;padding:10px 18px;border-radius:8px;font-size:13px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:999;}
 #toast.on{opacity:1;}
 .mbg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:200;align-items:center;justify-content:center;}
 .mbg.open{display:flex;}
 .modal{background:var(--sf);border-radius:16px;padding:24px;width:100%;max-width:400px;margin:16px;}
+/* Summary row highlight */
+.sum-row td{background:#f0faf5;font-weight:500;}
+.temp-warn{color:var(--a);font-weight:500;}
+.temp-ok{color:var(--gd);}
 </style>
 </head>
 <body>
 
+<!-- AUTH -->
 <div id="auth">
   <div class="acard">
     <div class="aorg">Bigben Readymix · Asphalt Division</div>
@@ -105,6 +116,7 @@ tr:last-child td{border-bottom:none;}tr:hover td{background:#fafaf8;}
   </div>
 </div>
 
+<!-- APP -->
 <div id="app">
   <div class="topbar">
     <div class="tb-brand">
@@ -118,8 +130,7 @@ tr:last-child td{border-bottom:none;}tr:hover td{background:#fafaf8;}
   </div>
 
   <div class="nav">
-    <button class="nt on"  onclick="goTab('dl',this)">🚛 Daily Lay</button>
-    <button class="nt" onclick="goTab('pt',this)">🏭 Plant Testing</button>
+    <button class="nt on" onclick="goTab('dl',this)">🚛 Daily Lay</button>
     <button class="nt" onclick="goTab('os',this)">🚧 On-Site Testing</button>
     <button class="nt" onclick="goTab('it',this)">📋 Internal Testing</button>
     <button class="nt" onclick="goTab('dash',this)">📊 KPI Dashboard</button>
@@ -127,10 +138,10 @@ tr:last-child td{border-bottom:none;}tr:hover td{background:#fafaf8;}
   </div>
 
   <div class="sbar">
-    <div><div class="sv" id="s-del">0</div><div class="sl">Total deliveries</div></div>
+    <div><div class="sv" id="s-loads">0</div><div class="sl">Total loads</div></div>
     <div><div class="sv" id="s-vol">0.00 T</div><div class="sl">Total volume</div></div>
     <div><div class="sv" id="s-proj">0</div><div class="sl">Active projects</div></div>
-    <div><div class="sv" id="s-today">0</div><div class="sl">Today's deliveries</div></div>
+    <div><div class="sv" id="s-today">0</div><div class="sl">Today's loads</div></div>
   </div>
 
   <div class="main">
@@ -138,98 +149,80 @@ tr:last-child td{border-bottom:none;}tr:hover td{background:#fafaf8;}
     <!-- 1. DAILY LAY (MASTER) -->
     <div id="tab-dl">
       <div class="fc">
-        <div class="ft">New delivery entry</div>
+        <div class="ft">New load entry</div>
         <div class="fg">
-          <div class="fl"><label>Project *</label>
-            <div style="display:flex;gap:5px">
-              <select id="f-proj" style="flex:1"><option value="">— select —</option></select>
-              <button class="btn bb sm" onclick="showNP()" title="Add project">+</button>
-            </div>
-            <div id="np-row" style="display:none;margin-top:5px">
-              <div style="display:flex;gap:4px">
-                <input id="np-inp" placeholder="New project" style="flex:1"/>
-                <button class="btn bg sm" onclick="confirmNP()">✓</button>
-                <button class="btn bgr sm" onclick="cancelNP()">✕</button>
-              </div>
-            </div>
-          </div>
-          <div class="fl"><label>Client / Contractor</label><input id="f-client" placeholder="e.g. DPWH"/></div>
-          <div class="fl"><label>Location / Station</label><input id="f-loc" placeholder="Sta. 0+000"/></div>
           <div class="fl"><label>Date *</label><input type="date" id="f-date"/></div>
-          <div class="fl"><label>Shift</label><select id="f-shift"><option>AM</option><option>PM</option></select></div>
-          <div class="fl"><label>DR No. *</label><input id="f-dr" placeholder="DR-00123"/></div>
-          <div class="fl"><label>Truck No. *</label><input id="f-truck" placeholder="BBM-001"/></div>
-          <div class="fl"><label>Mix Type</label>
-            <select id="f-mix"><option>Base Course</option><option>Binder Course (BC)</option><option>Wearing Course</option><option>OGFC</option><option>Others</option></select>
-          </div>
-          <div class="fl"><label>Volume (tons) *</label><input type="number" id="f-vol" min="0" step="0.01" placeholder="15.50"/></div>
-          <div class="fl" style="justify-content:flex-end"><button class="btn bg" onclick="addDelivery()">Add Entry</button></div>
+          <div class="fl"><label>Load No. *</label><input id="f-load" placeholder="1" type="number" min="1"/></div>
+          <div class="fl"><label>Client *</label><input id="f-client" placeholder="e.g. Ayala Alabang"/></div>
+          <div class="fl"><label>Project Location *</label><input id="f-loc" placeholder="e.g. Muntinlupa City"/></div>
+          <div class="fl"><label>JMF</label><input id="f-jmf" placeholder="e.g. 310-E"/></div>
+          <div class="fl"><label>Volume (tons) *</label><input type="number" id="f-vol" min="0" step="0.01" placeholder="18.00"/></div>
+          <div class="fl"><label>Temperature (°C) *</label><input type="number" id="f-temp" step="0.1" placeholder="173.5"/></div>
+          <div class="fl"><label>Bleed Test</label><select id="f-bleed"><option>Pass</option><option>Fail</option></select></div>
+          <div class="fl"><label>Lab Tech</label><input id="f-tech" placeholder="F. Monsayac"/></div>
+          <div class="fl"><label>DR No.</label><input id="f-dr" placeholder="DR-00123"/></div>
+          <div class="fl"><label>Remarks</label><input id="f-rem" placeholder="100% Accepted"/></div>
+          <div class="fl" style="justify-content:flex-end"><button class="btn bg" onclick="addLoad()">Add Load</button></div>
         </div>
       </div>
+
+      <!-- Per load table -->
       <div class="tc">
         <div class="tbar">
           <span class="flbl">Filter:</span>
           <select class="fsel" id="dl-fp" onchange="renderDL()"><option value="">All projects</option></select>
           <select class="fsel" id="dl-fd" onchange="renderDL()"><option value="">All dates</option></select>
-          <select class="fsel" id="dl-fs" onchange="renderDL()"><option value="">All shifts</option><option>AM</option><option>PM</option></select>
           <button class="btn bgr sm" onclick="clearDLF()">Clear</button>
         </div>
         <div class="ovx"><table>
-          <thead><tr><th>Date</th><th>Shift</th><th>Project</th><th>Client</th><th>Location</th><th>DR No.</th><th>Truck</th><th>Mix Type</th><th style="text-align:right">Vol (T)</th><th>By</th><th></th></tr></thead>
+          <thead><tr>
+            <th>Date</th><th>Load No.</th><th>Client</th><th>Project Location</th>
+            <th>JMF</th><th style="text-align:right">Vol (T)</th>
+            <th>Temp (°C)</th><th>Bleed</th><th>Lab Tech</th><th>DR No.</th><th>Remarks</th><th></th>
+          </tr></thead>
           <tbody id="dl-tb"></tbody>
-          <tfoot><tr class="tft"><td colspan="8" id="dl-cnt" style="color:var(--mu);font-size:12px;padding:7px 12px"></td><td style="text-align:right;padding:7px 12px" id="dl-tot"></td><td colspan="2"></td></tr></tfoot>
+          <tfoot><tr class="tft">
+            <td colspan="5" id="dl-cnt" style="color:var(--mu);font-size:12px;padding:7px 12px"></td>
+            <td style="text-align:right;padding:7px 12px" id="dl-tot"></td>
+            <td id="dl-avgtemp" style="padding:7px 12px"></td>
+            <td id="dl-bleedrate" style="padding:7px 12px"></td>
+            <td colspan="4"></td>
+          </tr></tfoot>
         </table></div>
       </div>
-      <div style="font-size:13px;font-weight:500;margin-bottom:10px;color:var(--mu)">By project</div>
-      <div class="sgrid" id="dl-pgrid"></div>
-    </div>
 
-    <!-- 2. PLANT TESTING (per truck from Daily Lay) -->
-    <div id="tab-pt" style="display:none">
-      <div class="knote">Per truck field check — select from Daily Lay entries. Temperature (thermometer) &amp; Bleed test (paper).</div>
-      <div id="pt-kh"></div>
-      <div class="fc">
-        <div class="ft">New plant test entry</div>
-        <div class="fg">
-          <div class="fl"><label>Select delivery (DR No.) *</label>
-            <select id="pt-dr"><option value="">— select DR No. —</option></select>
-          </div>
-          <div class="fl"><label>Temp reading (°C)</label><input type="number" id="pt-tv" placeholder="155"/></div>
-          <div class="fl"><label>Temp spec (°C)</label><input id="pt-ts" placeholder="150-165"/></div>
-          <div class="fl"><label>Temp result</label><select id="pt-tr"><option>Pass</option><option>Fail</option></select></div>
-          <div class="fl"><label>Bleed (paper)</label><select id="pt-br"><option>Pass</option><option>Fail</option></select></div>
-          <div class="fl" style="justify-content:flex-end"><button class="btn bg" onclick="addPlant()">Add</button></div>
-        </div>
-      </div>
+      <!-- Daily Summary -->
+      <div style="font-size:13px;font-weight:500;margin-bottom:10px">Daily Summary</div>
       <div class="tc">
-        <div class="tbar">
-          <span class="flbl">Filter:</span>
-          <select class="fsel" id="pt-fp" onchange="renderPlant()"><option value="">All projects</option></select>
-          <select class="fsel" id="pt-fd" onchange="renderPlant()"><option value="">All dates</option></select>
-        </div>
         <div class="ovx"><table>
-          <thead><tr><th>Date</th><th>Project</th><th>DR No.</th><th>Truck</th><th>Temp (°C)</th><th>Spec</th><th>Temp</th><th>Bleed</th><th>Overall</th><th></th></tr></thead>
-          <tbody id="pt-tb"></tbody>
+          <thead><tr>
+            <th>Date</th><th>Client</th><th>Project Location</th><th>JMF</th>
+            <th>Total Loads</th><th style="text-align:right">Total Vol (T)</th>
+            <th>Avg Temp (°C)</th><th>Temp Status</th><th>Bleed Pass Rate</th><th>Overall</th>
+          </tr></thead>
+          <tbody id="dl-summary"></tbody>
         </table></div>
       </div>
     </div>
 
-    <!-- 3. ON-SITE TESTING (linked to Daily Lay, multiple params per batch) -->
+    <!-- 2. ON-SITE TESTING -->
     <div id="tab-os" style="display:none">
-      <div class="knote">Samples gathered &amp; witnessed by client. Sample date = laying date. Multiple parameters per batch — add or remove as needed.</div>
+      <div class="knote">Samples gathered &amp; witnessed by client. Multiple parameters per batch — add or remove as needed.</div>
       <div id="os-kh"></div>
       <div class="fc">
         <div class="ft">New on-site sample entry</div>
         <div class="fg" style="margin-bottom:12px">
-          <div class="fl"><label>Select laying date / batch *</label>
-            <select id="os-dl"><option value="">— select laying entry —</option></select>
-          </div>
-          <div class="fl"><label>Client witness</label><input id="os-wit" placeholder="Name"/></div>
+          <div class="fl"><label>Date *</label><input type="date" id="os-date"/></div>
+          <div class="fl"><label>Client *</label><input id="os-client" placeholder="Client name"/></div>
+          <div class="fl"><label>Project Location *</label><input id="os-loc" placeholder="Project location"/></div>
+          <div class="fl"><label>JMF</label><input id="os-jmf" placeholder="e.g. 310-E"/></div>
+          <div class="fl"><label>Client Witness</label><input id="os-wit" placeholder="Witness name"/></div>
+          <div class="fl"><label>Lab Tech</label><input id="os-tech" placeholder="Lab technician"/></div>
         </div>
         <!-- Dynamic parameter rows -->
-        <div style="margin-bottom:8px">
-          <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr 32px;gap:6px;margin-bottom:6px">
-            <span style="font-size:10px;color:var(--mu);font-weight:500">Parameter</span>
+        <div style="margin-bottom:10px">
+          <div style="display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr 32px;gap:6px;margin-bottom:6px;padding:0 0 4px;border-bottom:1px solid var(--br)">
+            <span style="font-size:10px;color:var(--mu);font-weight:500;padding:0 4px">Parameter</span>
             <span style="font-size:10px;color:var(--mu);font-weight:500">Result</span>
             <span style="font-size:10px;color:var(--mu);font-weight:500">Test date</span>
             <span style="font-size:10px;color:var(--mu);font-weight:500">Released date</span>
@@ -237,7 +230,7 @@ tr:last-child td{border-bottom:none;}tr:hover td{background:#fafaf8;}
           </div>
           <div id="os-params"></div>
         </div>
-        <div style="display:flex;gap:8px;align-items:center">
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
           <button class="btn bb sm" onclick="addOsParam()">+ Add parameter</button>
           <button class="btn bg" onclick="addOnsite()">Save sample</button>
         </div>
@@ -249,28 +242,33 @@ tr:last-child td{border-bottom:none;}tr:hover td{background:#fafaf8;}
           <select class="fsel" id="os-fd" onchange="renderOnsite()"><option value="">All dates</option></select>
         </div>
         <div class="ovx"><table>
-          <thead><tr><th>Date</th><th>Project</th><th>DR / Batch</th><th>Witness</th><th>Parameter</th><th>Result</th><th>Test Date</th><th>Released</th><th>Days</th><th>On-Time</th><th></th></tr></thead>
+          <thead><tr>
+            <th>Date</th><th>Client</th><th>Project</th><th>JMF</th><th>Witness</th>
+            <th>Parameter</th><th>Result</th><th>Test Date</th><th>Released</th><th>Days</th><th>On-Time</th><th></th>
+          </tr></thead>
           <tbody id="os-tb"></tbody>
         </table></div>
       </div>
     </div>
 
-    <!-- 4. INTERNAL TESTING (linked to Daily Lay batches) -->
+    <!-- 3. INTERNAL TESTING -->
     <div id="tab-it" style="display:none">
-      <div class="knote">Self-initiated per batch — hindi required ng client. Select batch from Daily Lay.</div>
+      <div class="knote">Self-initiated per batch — hindi required ng client. Bigben's own QC sample.</div>
       <div id="it-kh"></div>
       <div class="fc">
         <div class="ft">New internal test entry</div>
         <div class="fg">
-          <div class="fl"><label>Select laying date / batch *</label>
-            <select id="it-dl"><option value="">— select laying entry —</option></select>
-          </div>
+          <div class="fl"><label>Date *</label><input type="date" id="it-date"/></div>
+          <div class="fl"><label>Client *</label><input id="it-client" placeholder="Client name"/></div>
+          <div class="fl"><label>Project Location *</label><input id="it-loc" placeholder="Project location"/></div>
+          <div class="fl"><label>JMF</label><input id="it-jmf" placeholder="e.g. 310-E"/></div>
           <div class="fl"><label>Internal sample?</label><select id="it-has"><option>Yes</option><option>No</option></select></div>
           <div class="fl"><label>Extraction</label><select id="it-ex"><option>Pass</option><option>Fail</option></select></div>
           <div class="fl"><label>Gradation</label><select id="it-gr"><option>Pass</option><option>Fail</option></select></div>
           <div class="fl"><label>GMM</label><select id="it-gm"><option>Pass</option><option>Fail</option></select></div>
           <div class="fl"><label>Stability</label><select id="it-st"><option>Pass</option><option>Fail</option></select></div>
           <div class="fl"><label>Flow</label><select id="it-fl"><option>Pass</option><option>Fail</option></select></div>
+          <div class="fl"><label>Lab Tech</label><input id="it-tech" placeholder="Lab technician"/></div>
           <div class="fl"><label>Remarks</label><input id="it-rem" placeholder="Optional"/></div>
           <div class="fl" style="justify-content:flex-end"><button class="btn bg" onclick="addInternal()">Add</button></div>
         </div>
@@ -282,50 +280,104 @@ tr:last-child td{border-bottom:none;}tr:hover td{background:#fafaf8;}
           <select class="fsel" id="it-fd" onchange="renderInternal()"><option value="">All dates</option></select>
         </div>
         <div class="ovx"><table>
-          <thead><tr><th>Date</th><th>Project</th><th>DR No.</th><th>Sample</th><th>Ext</th><th>Grad</th><th>GMM</th><th>Stab</th><th>Flow</th><th>Remarks</th><th></th></tr></thead>
+          <thead><tr>
+            <th>Date</th><th>Client</th><th>Project</th><th>JMF</th><th>Sample</th>
+            <th>Ext</th><th>Grad</th><th>GMM</th><th>Stab</th><th>Flow</th><th>Tech</th><th>Remarks</th><th></th>
+          </tr></thead>
           <tbody id="it-tb"></tbody>
         </table></div>
       </div>
     </div>
 
-    <!-- 5. KPI DASHBOARD -->
+    <!-- 4. KPI DASHBOARD -->
     <div id="tab-dash" style="display:none">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px">
-        <div style="font-size:12px;color:var(--mu)" id="dash-lbl"></div>
-        <select class="fsel" id="dash-mo" onchange="renderDash()"></select>
+        <div style="font-size:13px;font-weight:500" id="dash-lbl">KPI Dashboard</div>
+        <select class="fsel" id="dash-mo" onchange="renderDash()" style="font-size:13px;padding:6px 10px"></select>
       </div>
+
+      <!-- 4 KPI cards -->
       <div class="dg" id="dash-kpis"></div>
 
-      <!-- On-Time detail table -->
-      <div class="fc" style="margin-bottom:16px">
-        <div class="ft">On-Time Testing — released date tracking</div>
-        <div class="knote" style="margin-bottom:12px">Base sa On-Site Testing entries. I-enter ang released date para ma-compute ang on-time status.</div>
+      <!-- Plant Testing drill-down -->
+      <div class="drill" id="drill-plant">
+        <div class="drill-header">
+          <div class="drill-title">🏭 Plant Testing — breakdown per date</div>
+          <div style="display:flex;gap:8px;align-items:center">
+            <select class="fsel" id="drill-date" onchange="renderDrillPlant()"><option value="">All dates</option></select>
+            <button class="btn bgr sm" onclick="closeDrill('plant')">✕ Close</button>
+          </div>
+        </div>
         <div class="ovx"><table>
-          <thead><tr><th>Date</th><th>Project</th><th>DR No.</th><th>Parameter</th><th>Test Date</th><th>Released Date</th><th>Days</th><th>Status</th></tr></thead>
-          <tbody id="dash-ot"></tbody>
+          <thead><tr>
+            <th>Date</th><th>Load No.</th><th>Client</th><th>Project</th><th>JMF</th>
+            <th style="text-align:right">Vol (T)</th><th>Temp (°C)</th><th>Temp Status</th>
+            <th>Bleed</th><th>Lab Tech</th><th>Overall</th>
+          </tr></thead>
+          <tbody id="drill-plant-tb"></tbody>
+          <tfoot><tr class="tft">
+            <td colspan="5" style="padding:7px 12px;font-size:12px;color:var(--mu)" id="drill-cnt"></td>
+            <td style="text-align:right;padding:7px 12px" id="drill-vol"></td>
+            <td style="padding:7px 12px" id="drill-avgtemp"></td>
+            <td></td>
+            <td style="padding:7px 12px" id="drill-bleed"></td>
+            <td></td>
+            <td></td>
+          </tr></tfoot>
         </table></div>
       </div>
 
-      <!-- Bottom 2-col -->
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-        <div class="tc">
-          <div class="tbar"><span style="font-size:12px;font-weight:500">Today's deliveries</span></div>
-          <div class="ovx"><table>
-            <thead><tr><th>Project</th><th>DR No.</th><th>Truck</th><th>Shift</th><th style="text-align:right">Vol (T)</th></tr></thead>
-            <tbody id="dash-today"></tbody>
-          </table></div>
+      <!-- On-site drill-down -->
+      <div class="drill" id="drill-onsite">
+        <div class="drill-header">
+          <div class="drill-title">🚧 On-Site Testing — breakdown per date</div>
+          <div style="display:flex;gap:8px;align-items:center">
+            <select class="fsel" id="drill-os-date" onchange="renderDrillOnsite()"><option value="">All dates</option></select>
+            <button class="btn bgr sm" onclick="closeDrill('onsite')">✕ Close</button>
+          </div>
         </div>
-        <div class="tc">
-          <div class="tbar"><span style="font-size:12px;font-weight:500">On-Site samples this month</span></div>
-          <div class="ovx"><table>
-            <thead><tr><th>Project</th><th>DR No.</th><th>Parameter</th><th>Result</th></tr></thead>
-            <tbody id="dash-os"></tbody>
-          </table></div>
+        <div class="ovx"><table>
+          <thead><tr>
+            <th>Date</th><th>Client</th><th>Project</th><th>Parameter</th>
+            <th>Result</th><th>Test Date</th><th>Released</th><th>Days</th><th>On-Time</th>
+          </tr></thead>
+          <tbody id="drill-os-tb"></tbody>
+        </table></div>
+      </div>
+
+      <!-- Internal drill-down -->
+      <div class="drill" id="drill-internal">
+        <div class="drill-header">
+          <div class="drill-title">📋 Internal Testing — breakdown per date</div>
+          <div style="display:flex;gap:8px;align-items:center">
+            <select class="fsel" id="drill-it-date" onchange="renderDrillInternal()"><option value="">All dates</option></select>
+            <button class="btn bgr sm" onclick="closeDrill('internal')">✕ Close</button>
+          </div>
         </div>
+        <div class="ovx"><table>
+          <thead><tr>
+            <th>Date</th><th>Client</th><th>Project</th><th>Sample</th>
+            <th>Ext</th><th>Grad</th><th>GMM</th><th>Stab</th><th>Flow</th><th>Overall</th>
+          </tr></thead>
+          <tbody id="drill-it-tb"></tbody>
+        </table></div>
+      </div>
+
+      <!-- On-Time released date entry -->
+      <div class="fc" style="margin-bottom:16px">
+        <div class="ft">On-Time Testing — i-enter ang released date</div>
+        <div class="knote" style="margin-bottom:12px">Base sa On-Site Testing entries ng buwan. I-enter ang released date para ma-compute ang on-time status (within 3 days).</div>
+        <div class="ovx"><table>
+          <thead><tr>
+            <th>Date</th><th>Client</th><th>Project</th><th>Parameter</th>
+            <th>Test Date</th><th>Released Date</th><th>Days</th><th>Status</th>
+          </tr></thead>
+          <tbody id="dash-ot"></tbody>
+        </table></div>
       </div>
     </div>
 
-    <!-- 6. ADMIN -->
+    <!-- 5. ADMIN -->
     <div id="tab-adm" style="display:none">
       <div class="fc">
         <div class="ft">Create new user</div>
@@ -333,7 +385,9 @@ tr:last-child td{border-bottom:none;}tr:hover td{background:#fafaf8;}
           <div class="fl" style="flex:1 1 160px"><label>Email</label><input type="email" id="nu-e" placeholder="user@bigben.com"/></div>
           <div class="fl" style="flex:1 1 130px"><label>Password</label><input type="password" id="nu-p" placeholder="min. 6 chars"/></div>
           <div class="fl" style="flex:1 1 120px"><label>Name</label><input id="nu-n" placeholder="Full name"/></div>
-          <div class="fl" style="flex:0 0 auto"><label>Role</label><select id="nu-r"><option value="user">Regular user</option><option value="admin">Admin</option></select></div>
+          <div class="fl" style="flex:0 0 auto"><label>Role</label>
+            <select id="nu-r"><option value="user">Regular user</option><option value="admin">Admin</option></select>
+          </div>
           <button class="btn bg" onclick="createUser()">Create user</button>
         </div>
         <div id="cu-msg" style="font-size:12px;margin-top:8px"></div>
@@ -347,8 +401,8 @@ tr:last-child td{border-bottom:none;}tr:hover td{background:#fafaf8;}
       </div>
     </div>
 
-  </div>
-</div>
+  </div><!-- /main -->
+</div><!-- /app -->
 
 <div class="mbg" id="del-modal">
   <div class="modal">
@@ -383,15 +437,18 @@ const auth=getAuth(app),db=getDatabase(app);
 const MO=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 const CUR_MO=new Date().getMonth(),YR=new Date().getFullYear();
 const TODAY=new Date().toISOString().split("T")[0];
+const TEMP_MIN=160,TEMP_MAX=175;
 const fmt=n=>Number(n||0).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+const fmtT=n=>Number(n||0).toFixed(1);
 const pct=(a,b)=>b===0?0:Math.round(a/b*100);
 const toast=m=>{const t=document.getElementById("toast");t.textContent=m;t.classList.add("on");setTimeout(()=>t.classList.remove("on"),2500);};
 const sc=(r,tg)=>r>=tg?"#0F6E56":r>=tg-5?"#BA7517":"#A32D2D";
 const sb=(r,tg)=>r>=tg?"#E1F5EE":r>=tg-5?"#FAEEDA":"#FCEBEB";
 const P=(ok,y,n)=>`<span class="pill ${ok?"pok":"pfail"}">${ok?y:n}</span>`;
+const tempOk=t=>Number(t)>=TEMP_MIN&&Number(t)<=TEMP_MAX;
 const PARAMS=["Extraction","Gradation","GMM","Stability","Flow"];
 
-let CU=null,ROLE="user",deliveries=[],plant=[],onsite=[],internal=[],users={},delInfo=null;
+let CU=null,ROLE="user",loads=[],onsite=[],internal=[],users={},delInfo=null;
 
 // AUTH
 window.doLogin=async()=>{
@@ -414,6 +471,8 @@ onAuthStateChanged(auth,async user=>{
     rb.className="rbadge "+(ROLE==="admin"?"ra":"ru");
     document.getElementById("admintab").style.display=ROLE==="admin"?"":"none";
     document.getElementById("f-date").value=TODAY;
+    document.getElementById("os-date").value=TODAY;
+    document.getElementById("it-date").value=TODAY;
     initDashMo();
     initOsParams();
     startListeners();
@@ -429,74 +488,47 @@ function initDashMo(){
 }
 
 // ON-SITE DYNAMIC PARAMS
-let osParamRows=[];
+let osRows=[];
 function initOsParams(){
-  osParamRows=[{param:"Extraction",result:"Pass",testDate:TODAY,relDate:""}];
-  renderOsParamRows();
+  osRows=[{param:"Extraction",result:"Pass",testDate:TODAY,relDate:""}];
+  renderOsRows();
 }
-function renderOsParamRows(){
-  const c=document.getElementById("os-params");
-  c.innerHTML=osParamRows.map((r,i)=>`
+function renderOsRows(){
+  document.getElementById("os-params").innerHTML=osRows.map((r,i)=>`
     <div class="os-row">
-      <div class="fl">
-        <select onchange="osParamRows[${i}].param=this.value" style="font-size:12px">
-          ${PARAMS.map(p=>`<option${r.param===p?" selected":""}>${p}</option>`).join("")}
-        </select>
-      </div>
-      <div class="fl">
-        <select onchange="osParamRows[${i}].result=this.value" style="font-size:12px">
-          <option${r.result==="Pass"?" selected":""}>Pass</option>
-          <option${r.result==="Fail"?" selected":""}>Fail</option>
-        </select>
-      </div>
-      <div class="fl">
-        <input type="date" value="${r.testDate}" onchange="osParamRows[${i}].testDate=this.value" style="font-size:12px"/>
-      </div>
-      <div class="fl">
-        <input type="date" value="${r.relDate}" onchange="osParamRows[${i}].relDate=this.value" style="font-size:12px"/>
-      </div>
-      <button class="btn br2 sm" onclick="removeOsParam(${i})" style="padding:4px 7px">✕</button>
-    </div>
-  `).join("");
+      <div><select onchange="osRows[${i}].param=this.value" style="font-size:12px">
+        ${PARAMS.map(p=>`<option${r.param===p?" selected":""}>${p}</option>`).join("")}
+      </select></div>
+      <div><select onchange="osRows[${i}].result=this.value" style="font-size:12px">
+        <option${r.result==="Pass"?" selected":""}>Pass</option>
+        <option${r.result==="Fail"?" selected":""}>Fail</option>
+      </select></div>
+      <div><input type="date" value="${r.testDate}" onchange="osRows[${i}].testDate=this.value" style="font-size:12px"/></div>
+      <div><input type="date" value="${r.relDate}" onchange="osRows[${i}].relDate=this.value" style="font-size:12px"/></div>
+      <button class="btn br2 sm" onclick="removeOsRow(${i})" style="padding:4px 8px">✕</button>
+    </div>`).join("");
 }
-window.addOsParam=()=>{
-  osParamRows.push({param:PARAMS[osParamRows.length%PARAMS.length],result:"Pass",testDate:TODAY,relDate:""});
-  renderOsParamRows();
-};
-window.removeOsParam=(i)=>{
-  if(osParamRows.length<=1){toast("At least one parameter required.");return;}
-  osParamRows.splice(i,1);
-  renderOsParamRows();
-};
+window.addOsParam=()=>{osRows.push({param:PARAMS[osRows.length%PARAMS.length],result:"Pass",testDate:TODAY,relDate:""});renderOsRows();};
+window.removeOsRow=(i)=>{if(osRows.length<=1){toast("At least 1 parameter required.");return;}osRows.splice(i,1);renderOsRows();};
 
 function startListeners(){
-  onValue(ref(db,"deliveries"),snap=>{
-    deliveries=[];
-    if(snap.exists()) snap.forEach(c=>deliveries.push({key:c.key,...c.val()}));
-    deliveries.sort((a,b)=>b.date.localeCompare(a.date)||b.ts-a.ts);
-    updateStats(); updateDeliverySelects(); renderDL(); renderDLProj();
-  });
-  onValue(ref(db,"projects"),snap=>{
-    const sel=document.getElementById("f-proj"),cur=sel.value;
-    sel.innerHTML='<option value="">— select —</option>';
-    if(snap.exists()) snap.forEach(c=>{const o=document.createElement("option");o.value=c.val();o.textContent=c.val();sel.appendChild(o);});
-    if(cur) sel.value=cur;
-  });
-  onValue(ref(db,"plant"),snap=>{
-    plant=[];
-    if(snap.exists()) snap.forEach(c=>plant.push({key:c.key,...c.val()}));
-    renderPlant();
+  onValue(ref(db,"loads"),snap=>{
+    loads=[];
+    if(snap.exists()) snap.forEach(c=>loads.push({key:c.key,...c.val()}));
+    loads.sort((a,b)=>b.date.localeCompare(a.date)||a.loadNo-b.loadNo);
+    updateStats(); updateFilters(); renderDL(); renderDLSummary();
   });
   onValue(ref(db,"onsite"),snap=>{
     onsite=[];
     if(snap.exists()) snap.forEach(c=>onsite.push({key:c.key,...c.val()}));
     renderOnsite();
-    if(document.getElementById("tab-dash").style.display!=="none") renderDash();
+    updateOsFilters();
   });
   onValue(ref(db,"internal"),snap=>{
     internal=[];
     if(snap.exists()) snap.forEach(c=>internal.push({key:c.key,...c.val()}));
     renderInternal();
+    updateItFilters();
   });
   if(ROLE==="admin"){
     onValue(ref(db,"users"),snap=>{
@@ -508,112 +540,186 @@ function startListeners(){
 }
 
 function updateStats(){
-  document.getElementById("s-del").textContent=deliveries.length;
-  document.getElementById("s-vol").textContent=fmt(deliveries.reduce((s,e)=>s+e.volume,0))+" T";
-  document.getElementById("s-proj").textContent=[...new Set(deliveries.map(e=>e.project))].length;
-  document.getElementById("s-today").textContent=deliveries.filter(e=>e.date===TODAY).length;
+  document.getElementById("s-loads").textContent=loads.length;
+  document.getElementById("s-vol").textContent=fmt(loads.reduce((s,e)=>s+e.volume,0))+" T";
+  document.getElementById("s-proj").textContent=[...new Set(loads.map(e=>e.location))].length;
+  document.getElementById("s-today").textContent=loads.filter(e=>e.date===TODAY).length;
 }
 
-function updateDeliverySelects(){
-  // DR selects for Plant and Internal
-  const ptSel=document.getElementById("pt-dr");
-  const itSel=document.getElementById("it-dl");
-  const osSel=document.getElementById("os-dl");
+function updateFilters(){
+  const projs=[...new Set(loads.map(e=>e.location))].sort();
+  const dates=[...new Set(loads.map(e=>e.date))].sort().reverse();
+  ["dl-fp"].forEach(id=>{const s=document.getElementById(id),c=s.value;s.innerHTML='<option value="">All projects</option>';projs.forEach(p=>{const o=document.createElement("option");o.value=p;o.textContent=p;s.appendChild(o);});if(c)s.value=c;});
+  const fd=document.getElementById("dl-fd"),c=fd.value;fd.innerHTML='<option value="">All dates</option>';dates.forEach(d=>{const o=document.createElement("option");o.value=d;o.textContent=d;fd.appendChild(o);});if(c)fd.value=c;
 
-  // Get already-tested DR nos for plant
-  const testedDRs=new Set(plant.map(p=>p.deliveryKey));
-
-  [ptSel,itSel,osSel].forEach(sel=>{
-    const cur=sel.value;
-    sel.innerHTML='<option value="">— select —</option>';
-    deliveries.forEach(d=>{
-      const o=document.createElement("option");
-      o.value=d.key;
-      o.textContent=`${d.date} | ${d.project} | DR: ${d.drNo} | Truck: ${d.truckNo}`;
-      sel.appendChild(o);
-    });
-    if(cur) sel.value=cur;
-  });
-
-  // Update filter selects
-  const projs=[...new Set(deliveries.map(e=>e.project))].sort();
-  const dates=[...new Set(deliveries.map(e=>e.date))].sort().reverse();
-  ["pt-fp","os-fp","it-fp"].forEach(id=>{
-    const s=document.getElementById(id),c=s.value;
-    s.innerHTML='<option value="">All projects</option>';
-    projs.forEach(p=>{const o=document.createElement("option");o.value=p;o.textContent=p;s.appendChild(o);});
-    if(c) s.value=c;
-  });
-  ["pt-fd","os-fd","it-fd","dl-fp"].forEach(id=>{
-    const s=document.getElementById(id);
-    const isDLP=id==="dl-fp";
-    const c=s.value;
-    s.innerHTML=isDLP?'<option value="">All projects</option>':'<option value="">All dates</option>';
-    if(isDLP){projs.forEach(p=>{const o=document.createElement("option");o.value=p;o.textContent=p;s.appendChild(o);});}
-    else{dates.forEach(d=>{const o=document.createElement("option");o.value=d;o.textContent=d;s.appendChild(o);});}
-    if(c) s.value=c;
-  });
-  const dlfd=document.getElementById("dl-fd"),cdd=dlfd.value;
-  dlfd.innerHTML='<option value="">All dates</option>';
-  dates.forEach(d=>{const o=document.createElement("option");o.value=d;o.textContent=d;dlfd.appendChild(o);});
-  if(cdd) dlfd.value=cdd;
+  // Drill-down date filter
+  const dd=document.getElementById("drill-date"),cd=dd.value;dd.innerHTML='<option value="">All dates</option>';dates.forEach(d=>{const o=document.createElement("option");o.value=d;o.textContent=d;dd.appendChild(o);});if(cd)dd.value=cd;
 }
 
-// PROJECT
-window.showNP=()=>{document.getElementById("np-row").style.display="block";document.getElementById("np-inp").focus();};
-window.cancelNP=()=>{document.getElementById("np-row").style.display="none";document.getElementById("np-inp").value="";};
-window.confirmNP=async()=>{const n=document.getElementById("np-inp").value.trim();if(!n)return;await push(ref(db,"projects"),n);cancelNP();toast("Project added!");};
+function updateOsFilters(){
+  const projs=[...new Set(onsite.map(e=>e.location))].sort();
+  const dates=[...new Set(onsite.map(e=>e.date))].sort().reverse();
+  ["os-fp"].forEach(id=>{const s=document.getElementById(id),c=s.value;s.innerHTML='<option value="">All projects</option>';projs.forEach(p=>{const o=document.createElement("option");o.value=p;o.textContent=p;s.appendChild(o);});if(c)s.value=c;});
+  const fd=document.getElementById("os-fd"),c=fd.value;fd.innerHTML='<option value="">All dates</option>';dates.forEach(d=>{const o=document.createElement("option");o.value=d;o.textContent=d;fd.appendChild(o);});if(c)fd.value=c;
+  const dd=document.getElementById("drill-os-date"),cd=dd.value;dd.innerHTML='<option value="">All dates</option>';dates.forEach(d=>{const o=document.createElement("option");o.value=d;o.textContent=d;dd.appendChild(o);});if(cd)dd.value=cd;
+}
+
+function updateItFilters(){
+  const projs=[...new Set(internal.map(e=>e.location))].sort();
+  const dates=[...new Set(internal.map(e=>e.date))].sort().reverse();
+  ["it-fp"].forEach(id=>{const s=document.getElementById(id),c=s.value;s.innerHTML='<option value="">All projects</option>';projs.forEach(p=>{const o=document.createElement("option");o.value=p;o.textContent=p;s.appendChild(o);});if(c)s.value=c;});
+  const fd=document.getElementById("it-fd"),c=fd.value;fd.innerHTML='<option value="">All dates</option>';dates.forEach(d=>{const o=document.createElement("option");o.value=d;o.textContent=d;fd.appendChild(o);});if(c)fd.value=c;
+  const dd=document.getElementById("drill-it-date"),cd=dd.value;dd.innerHTML='<option value="">All dates</option>';dates.forEach(d=>{const o=document.createElement("option");o.value=d;o.textContent=d;dd.appendChild(o);});if(cd)dd.value=cd;
+}
 
 // 1. DAILY LAY
-window.addDelivery=async()=>{
-  const proj=document.getElementById("f-proj").value,dr=document.getElementById("f-dr").value.trim(),
-    truck=document.getElementById("f-truck").value.trim(),vol=document.getElementById("f-vol").value,
-    date=document.getElementById("f-date").value;
-  if(!proj||!dr||!truck||!vol||!date){toast("Fill required fields (*)");return;}
-  await push(ref(db,"deliveries"),{project:proj,date,shift:document.getElementById("f-shift").value,
-    client:document.getElementById("f-client").value.trim(),location:document.getElementById("f-loc").value.trim(),
-    drNo:dr,truckNo:truck,mixType:document.getElementById("f-mix").value,volume:Number(vol),
+window.addLoad=async()=>{
+  const date=document.getElementById("f-date").value,loadNo=document.getElementById("f-load").value,
+    client=document.getElementById("f-client").value.trim(),loc=document.getElementById("f-loc").value.trim(),
+    vol=document.getElementById("f-vol").value,temp=document.getElementById("f-temp").value;
+  if(!date||!loadNo||!client||!loc||!vol||!temp){toast("Fill required fields (*)");return;}
+  await push(ref(db,"loads"),{date,loadNo:Number(loadNo),client,location:loc,
+    jmf:document.getElementById("f-jmf").value.trim(),volume:Number(vol),temperature:Number(temp),
+    bleed:document.getElementById("f-bleed").value,labTech:document.getElementById("f-tech").value.trim(),
+    drNo:document.getElementById("f-dr").value.trim(),remarks:document.getElementById("f-rem").value.trim(),
     addedBy:CU.email,ts:Date.now()});
-  ["f-dr","f-truck","f-vol"].forEach(id=>document.getElementById(id).value="");
-  toast("Delivery added!");
+  ["f-load","f-vol","f-temp","f-dr","f-rem"].forEach(id=>document.getElementById(id).value="");
+  toast("Load added!");
 };
+
 window.renderDL=()=>{
-  const fp=document.getElementById("dl-fp").value,fd=document.getElementById("dl-fd").value,fs=document.getElementById("dl-fs").value;
-  const f=deliveries.filter(e=>(!fp||e.project===fp)&&(!fd||e.date===fd)&&(!fs||e.shift===fs));
+  const fp=document.getElementById("dl-fp").value,fd=document.getElementById("dl-fd").value;
+  const f=loads.filter(e=>(!fp||e.location===fp)&&(!fd||e.date===fd));
   const tb=document.getElementById("dl-tb");
-  if(!f.length){tb.innerHTML=`<tr><td colspan="11" class="empty">No entries.</td></tr>`;return;}
+  if(!f.length){tb.innerHTML=`<tr><td colspan="12" class="empty">No entries.</td></tr>`;
+    document.getElementById("dl-cnt").textContent="";document.getElementById("dl-tot").textContent="";
+    document.getElementById("dl-avgtemp").textContent="";document.getElementById("dl-bleedrate").textContent="";
+    return;}
   tb.innerHTML=f.map(e=>`<tr>
-    <td>${e.date}</td><td><span class="pill p${e.shift.toLowerCase()}">${e.shift}</span></td>
-    <td>${e.project}</td><td>${e.client||"—"}</td><td>${e.location||"—"}</td>
-    <td>${e.drNo}</td><td>${e.truckNo}</td><td>${e.mixType}</td>
+    <td>${e.date}</td><td>${e.loadNo}</td><td>${e.client}</td><td>${e.location}</td><td>${e.jmf||"—"}</td>
     <td style="text-align:right">${fmt(e.volume)}</td>
-    <td style="font-size:10px;color:var(--mu)">${e.addedBy||""}</td>
-    <td>${ROLE==="admin"?`<button class="btn br2 sm" onclick="openDel('deliveries','${e.key}')">Del</button>`:""}</td>
+    <td class="${tempOk(e.temperature)?"temp-ok":"temp-warn"}">${fmtT(e.temperature)}°C</td>
+    <td>${P(e.bleed==="Pass","Pass","Fail")}</td>
+    <td>${e.labTech||"—"}</td><td>${e.drNo||"—"}</td><td>${e.remarks||"—"}</td>
+    <td>${ROLE==="admin"?`<button class="btn br2 sm" onclick="openDel('loads','${e.key}')">Del</button>`:""}</td>
   </tr>`).join("");
   const tot=f.reduce((s,e)=>s+e.volume,0);
-  document.getElementById("dl-cnt").textContent=`${f.length} truck${f.length!==1?"s":""}`;
+  const avgT=f.reduce((s,e)=>s+e.temperature,0)/f.length;
+  const bleedPass=f.filter(e=>e.bleed==="Pass").length;
+  document.getElementById("dl-cnt").textContent=`${f.length} load${f.length!==1?"s":""}`;
   document.getElementById("dl-tot").innerHTML=`<strong>${fmt(tot)} T</strong>`;
+  document.getElementById("dl-avgtemp").innerHTML=`<span class="${tempOk(avgT)?"temp-ok":"temp-warn"}">Avg: ${fmtT(avgT)}°C</span>`;
+  document.getElementById("dl-bleedrate").innerHTML=`Bleed: ${pct(bleedPass,f.length)}% pass`;
 };
-window.clearDLF=()=>{["dl-fp","dl-fd","dl-fs"].forEach(id=>document.getElementById(id).value="");renderDL();};
-function renderDLProj(){
-  const byP={};deliveries.forEach(e=>(byP[e.project]=byP[e.project]||[]).push(e));
-  const g=document.getElementById("dl-pgrid"),projs=Object.keys(byP).sort();
-  if(!projs.length){g.innerHTML=`<div class="empty">No data yet.</div>`;return;}
-  g.innerHTML=projs.map(p=>{
-    const r=byP[p],tot=r.reduce((s,x)=>s+x.volume,0),days=[...new Set(r.map(x=>x.date))].length;
-    const cl=[...new Set(r.map(x=>x.client).filter(Boolean))].join(", ")||"—";
-    const mx=[...new Set(r.map(x=>x.mixType))];
-    return `<div class="sc"><div class="sct">${p}</div><div class="scs">${cl}</div>
-      <div class="scst">
-        <div class="scst-i"><div class="scst-v">${fmt(tot)} T</div><div class="scst-l">Total volume</div></div>
-        <div class="scst-i"><div class="scst-v">${r.length}</div><div class="scst-l">Trucks</div></div>
-        <div class="scst-i"><div class="scst-v">${days}</div><div class="scst-l">Days</div></div>
-      </div><div>${mx.map(m=>`<span class="mtag">${m}</span>`).join("")}</div></div>`;
+window.clearDLF=()=>{["dl-fp","dl-fd"].forEach(id=>document.getElementById(id).value="");renderDL();renderDLSummary();};
+
+function renderDLSummary(){
+  // Group by date + location
+  const groups={};
+  loads.forEach(e=>{
+    const k=`${e.date}|||${e.location}`;
+    if(!groups[k]) groups[k]={date:e.date,client:e.client,location:e.location,jmf:e.jmf,loads:[],};
+    groups[k].loads.push(e);
+  });
+  const rows=Object.values(groups).sort((a,b)=>b.date.localeCompare(a.date));
+  const tb=document.getElementById("dl-summary");
+  if(!rows.length){tb.innerHTML=`<tr><td colspan="10" class="empty">No data yet.</td></tr>`;return;}
+  tb.innerHTML=rows.map(g=>{
+    const totalVol=g.loads.reduce((s,e)=>s+e.volume,0);
+    const avgTemp=g.loads.reduce((s,e)=>s+e.temperature,0)/g.loads.length;
+    const bleedPass=g.loads.filter(e=>e.bleed==="Pass").length;
+    const bleedRate=pct(bleedPass,g.loads.length);
+    const tOk=tempOk(avgTemp);
+    const overall=tOk&&bleedRate===100;
+    return `<tr class="sum-row">
+      <td>${g.date}</td><td>${g.client}</td><td>${g.location}</td><td>${g.jmf||"—"}</td>
+      <td>${g.loads.length} loads</td>
+      <td style="text-align:right"><strong>${fmt(totalVol)} T</strong></td>
+      <td class="${tOk?"temp-ok":"temp-warn"}">${fmtT(avgTemp)}°C</td>
+      <td>${P(tOk,"✓ In range","✗ Out of range")} <span style="font-size:10px;color:var(--mu)">(160-175°C)</span></td>
+      <td>${P(bleedRate===100,"100% Pass",bleedRate+"% Pass")}</td>
+      <td>${P(overall,"✓ Passed","✗ Check")}</td>
+    </tr>`;
   }).join("");
 }
 
+// 2. ON-SITE TESTING
+window.addOnsite=async()=>{
+  const date=document.getElementById("os-date").value,client=document.getElementById("os-client").value.trim(),
+    loc=document.getElementById("os-loc").value.trim();
+  if(!date||!client||!loc){toast("Fill required fields (*)");return;}
+  for(const r of osRows){
+    await push(ref(db,"onsite"),{date,client,location:loc,
+      jmf:document.getElementById("os-jmf").value.trim(),
+      witness:document.getElementById("os-wit").value.trim(),
+      labTech:document.getElementById("os-tech").value.trim(),
+      parameter:r.param,result:r.result,testDate:r.testDate,releasedDate:r.relDate||"",
+      addedBy:CU.email,ts:Date.now()});
+  }
+  ["os-client","os-loc","os-jmf","os-wit","os-tech"].forEach(id=>document.getElementById(id).value="");
+  initOsParams();
+  toast("On-site sample saved!");
+};
+
+window.renderOnsite=()=>{
+  const fp=document.getElementById("os-fp").value,fd=document.getElementById("os-fd").value;
+  const f=onsite.filter(e=>(!fp||e.location===fp)&&(!fd||e.date===fd));
+  const passed=f.filter(e=>e.result==="Pass").length;
+  kh("os-kh",pct(passed,f.length),99,"99% compliance",f.length,passed,"params passed");
+  const tb=document.getElementById("os-tb");
+  if(!f.length){tb.innerHTML=`<tr><td colspan="12" class="empty">No entries.</td></tr>`;return;}
+  tb.innerHTML=f.map(e=>{
+    const days=e.releasedDate&&e.testDate?Math.round((new Date(e.releasedDate)-new Date(e.testDate))/86400000):null;
+    const onT=days!==null&&days<=3;
+    return `<tr>
+      <td>${e.date}</td><td>${e.client}</td><td>${e.location}</td><td>${e.jmf||"—"}</td><td>${e.witness||"—"}</td>
+      <td>${e.parameter}</td><td>${P(e.result==="Pass","Pass","Fail")}</td>
+      <td>${e.testDate||"—"}</td><td>${e.releasedDate||"—"}</td>
+      <td>${days!==null?days+"d":"—"}</td>
+      <td>${e.releasedDate?P(onT,"On time","Late"):"<span style='font-size:11px;color:var(--mu)'>Pending</span>"}</td>
+      <td>${ROLE==="admin"?`<button class="btn br2 sm" onclick="openDel('onsite','${e.key}')">Del</button>`:""}</td>
+    </tr>`;
+  }).join("");
+};
+
+// 3. INTERNAL TESTING
+window.addInternal=async()=>{
+  const date=document.getElementById("it-date").value,client=document.getElementById("it-client").value.trim(),
+    loc=document.getElementById("it-loc").value.trim();
+  if(!date||!client||!loc){toast("Fill required fields (*)");return;}
+  await push(ref(db,"internal"),{date,client,location:loc,
+    jmf:document.getElementById("it-jmf").value.trim(),
+    hasSample:document.getElementById("it-has").value,
+    extraction:document.getElementById("it-ex").value,gradation:document.getElementById("it-gr").value,
+    gmm:document.getElementById("it-gm").value,stability:document.getElementById("it-st").value,
+    flow:document.getElementById("it-fl").value,
+    labTech:document.getElementById("it-tech").value.trim(),
+    remarks:document.getElementById("it-rem").value.trim(),
+    addedBy:CU.email,ts:Date.now()});
+  ["it-client","it-loc","it-jmf","it-tech","it-rem"].forEach(id=>document.getElementById(id).value="");
+  toast("Internal test added!");
+};
+
+window.renderInternal=()=>{
+  const fp=document.getElementById("it-fp").value,fd=document.getElementById("it-fd").value;
+  const f=internal.filter(e=>(!fp||e.location===fp)&&(!fd||e.date===fd));
+  const w=f.filter(e=>e.hasSample==="Yes").length;
+  kh("it-kh",pct(w,f.length),100,"100% coverage",f.length,w,"with sample");
+  const tb=document.getElementById("it-tb");
+  if(!f.length){tb.innerHTML=`<tr><td colspan="13" class="empty">No entries.</td></tr>`;return;}
+  const PK=["extraction","gradation","gmm","stability","flow"];
+  tb.innerHTML=f.map(e=>`<tr>
+    <td>${e.date}</td><td>${e.client}</td><td>${e.location}</td><td>${e.jmf||"—"}</td>
+    <td>${P(e.hasSample==="Yes","Yes","No")}</td>
+    ${e.hasSample==="Yes"?PK.map(k=>`<td>${P(e[k]==="Pass","P","F")}</td>`).join(""):"<td>—</td><td>—</td><td>—</td><td>—</td><td>—</td>"}
+    <td>${e.labTech||"—"}</td><td>${e.remarks||"—"}</td>
+    <td>${ROLE==="admin"?`<button class="btn br2 sm" onclick="openDel('internal','${e.key}')">Del</button>`:""}</td>
+  </tr>`).join("");
+};
+
 // KPI HEADER helper
 function kh(id,rate,tg,tgLbl,total,passed,uLbl){
+  if(!document.getElementById(id)) return;
   const col=sc(rate,tg),bg=sb(rate,tg),has=total>0;
   document.getElementById(id).innerHTML=`<div class="khead">
     <div class="krate" style="background:${bg}">
@@ -629,142 +735,46 @@ function kh(id,rate,tg,tgLbl,total,passed,uLbl){
   </div>`;
 }
 
-// 2. PLANT TESTING
-window.addPlant=async()=>{
-  const dk=document.getElementById("pt-dr").value;
-  if(!dk){toast("Select a delivery first");return;}
-  const d=deliveries.find(x=>x.key===dk);
-  if(!d)return;
-  await push(ref(db,"plant"),{deliveryKey:dk,project:d.project,date:d.date,drNo:d.drNo,truckNo:d.truckNo,
-    tempReading:document.getElementById("pt-tv").value,tempSpec:document.getElementById("pt-ts").value,
-    tempOk:document.getElementById("pt-tr").value,bleedOk:document.getElementById("pt-br").value,
-    addedBy:CU.email,ts:Date.now()});
-  ["pt-tv","pt-ts"].forEach(id=>document.getElementById(id).value="");
-  document.getElementById("pt-dr").value="";
-  toast("Plant test added!");
-};
-window.renderPlant=()=>{
-  const fp=document.getElementById("pt-fp").value,fd=document.getElementById("pt-fd").value;
-  const f=plant.filter(e=>(!fp||e.project===fp)&&(!fd||e.date===fd));
-  const passed=f.filter(e=>e.tempOk==="Pass"&&e.bleedOk==="Pass").length;
-  kh("pt-kh",pct(passed,f.length),99,"99% pass rate",f.length,passed,"passed");
-  const tb=document.getElementById("pt-tb");
-  if(!f.length){tb.innerHTML=`<tr><td colspan="10" class="empty">No entries.</td></tr>`;return;}
-  tb.innerHTML=f.map(e=>{const ok=e.tempOk==="Pass"&&e.bleedOk==="Pass";return `<tr>
-    <td>${e.date}</td><td>${e.project}</td><td>${e.drNo}</td><td>${e.truckNo}</td>
-    <td>${e.tempReading?e.tempReading+"°C":"—"}</td><td>${e.tempSpec||"—"}</td>
-    <td>${P(e.tempOk==="Pass","Pass","Fail")}</td><td>${P(e.bleedOk==="Pass","Pass","Fail")}</td>
-    <td>${P(ok,"✓ Pass","✗ Fail")}</td>
-    <td>${ROLE==="admin"?`<button class="btn br2 sm" onclick="openDel('plant','${e.key}')">Del</button>`:""}</td>
-  </tr>`;}).join("");
-};
-
-// 3. ON-SITE TESTING (multiple params per sample)
-window.addOnsite=async()=>{
-  const dk=document.getElementById("os-dl").value,wit=document.getElementById("os-wit").value.trim();
-  if(!dk){toast("Select a laying entry");return;}
-  const d=deliveries.find(x=>x.key===dk);
-  if(!d)return;
-  // Save each param row as separate entry linked to same deliveryKey
-  for(const r of osParamRows){
-    await push(ref(db,"onsite"),{deliveryKey:dk,project:d.project,date:d.date,drNo:d.drNo,
-      witness:wit,parameter:r.param,result:r.result,testDate:r.testDate,releasedDate:r.relDate||"",
-      addedBy:CU.email,ts:Date.now()});
-  }
-  document.getElementById("os-dl").value="";
-  document.getElementById("os-wit").value="";
-  initOsParams();
-  toast("On-site sample saved!");
-};
-window.renderOnsite=()=>{
-  const fp=document.getElementById("os-fp").value,fd=document.getElementById("os-fd").value;
-  const f=onsite.filter(e=>(!fp||e.project===fp)&&(!fd||e.date===fd));
-  // Unique samples (by deliveryKey)
-  const uniq=[...new Set(f.map(e=>e.deliveryKey))].length;
-  const passed=f.filter(e=>e.result==="Pass").length;
-  kh("os-kh",pct(passed,f.length),99,"99% compliance",f.length,passed,"params passed");
-  const tb=document.getElementById("os-tb");
-  if(!f.length){tb.innerHTML=`<tr><td colspan="11" class="empty">No entries.</td></tr>`;return;}
-  tb.innerHTML=f.map(e=>{
-    const days=e.releasedDate&&e.testDate?Math.round((new Date(e.releasedDate)-new Date(e.testDate))/86400000):null;
-    const onT=days!==null&&days<=3;
-    return `<tr>
-      <td>${e.date}</td><td>${e.project}</td><td>${e.drNo}</td><td>${e.witness||"—"}</td>
-      <td>${e.parameter}</td><td>${P(e.result==="Pass","Pass","Fail")}</td>
-      <td>${e.testDate||"—"}</td><td>${e.releasedDate||"—"}</td>
-      <td>${days!==null?days+"d":"—"}</td>
-      <td>${e.releasedDate?P(onT,"On time","Late"):"<span style='font-size:11px;color:var(--mu)'>Pending</span>"}</td>
-      <td>${ROLE==="admin"?`<button class="btn br2 sm" onclick="openDel('onsite','${e.key}')">Del</button>`:""}</td>
-    </tr>`;
-  }).join("");
-};
-
-// 4. INTERNAL TESTING
-window.addInternal=async()=>{
-  const dk=document.getElementById("it-dl").value;
-  if(!dk){toast("Select a laying entry");return;}
-  const d=deliveries.find(x=>x.key===dk);
-  if(!d)return;
-  await push(ref(db,"internal"),{deliveryKey:dk,project:d.project,date:d.date,drNo:d.drNo,
-    hasSample:document.getElementById("it-has").value,
-    extraction:document.getElementById("it-ex").value,gradation:document.getElementById("it-gr").value,
-    gmm:document.getElementById("it-gm").value,stability:document.getElementById("it-st").value,
-    flow:document.getElementById("it-fl").value,remarks:document.getElementById("it-rem").value.trim(),
-    addedBy:CU.email,ts:Date.now()});
-  document.getElementById("it-dl").value="";
-  document.getElementById("it-rem").value="";
-  toast("Internal test added!");
-};
-window.renderInternal=()=>{
-  const fp=document.getElementById("it-fp").value,fd=document.getElementById("it-fd").value;
-  const f=internal.filter(e=>(!fp||e.project===fp)&&(!fd||e.date===fd));
-  const w=f.filter(e=>e.hasSample==="Yes").length;
-  kh("it-kh",pct(w,f.length),100,"100% coverage",f.length,w,"with sample");
-  const tb=document.getElementById("it-tb");
-  if(!f.length){tb.innerHTML=`<tr><td colspan="11" class="empty">No entries.</td></tr>`;return;}
-  const PK=["extraction","gradation","gmm","stability","flow"];
-  tb.innerHTML=f.map(e=>`<tr>
-    <td>${e.date}</td><td>${e.project}</td><td>${e.drNo}</td>
-    <td>${P(e.hasSample==="Yes","Yes","No")}</td>
-    ${e.hasSample==="Yes"
-      ?PK.map(k=>`<td>${P(e[k]==="Pass","P","F")}</td>`).join("")
-      :"<td>—</td><td>—</td><td>—</td><td>—</td><td>—</td>"}
-    <td>${e.remarks||"—"}</td>
-    <td>${ROLE==="admin"?`<button class="btn br2 sm" onclick="openDel('internal','${e.key}')">Del</button>`:""}</td>
-  </tr>`).join("");
-};
-
-// 5. KPI DASHBOARD
+// 4. KPI DASHBOARD
 window.renderDash=()=>{
   const mo=Number(document.getElementById("dash-mo").value);
-  document.getElementById("dash-lbl").textContent=`${MO[mo]} ${YR} — KPI snapshot`;
+  document.getElementById("dash-lbl").textContent=`KPI Dashboard — ${MO[mo]} ${YR}`;
 
-  // Get deliveries this month
-  const dlMo=deliveries.filter(e=>new Date(e.date).getMonth()===mo);
-  const ptMo=plant.filter(e=>dlMo.some(d=>d.key===e.deliveryKey));
-  const osMo=onsite.filter(e=>dlMo.some(d=>d.key===e.deliveryKey));
-  const itMo=internal.filter(e=>dlMo.some(d=>d.key===e.deliveryKey));
+  const loMo=loads.filter(e=>new Date(e.date).getMonth()===mo);
+  const osMo=onsite.filter(e=>new Date(e.date).getMonth()===mo);
+  const itMo=internal.filter(e=>new Date(e.date).getMonth()===mo);
 
-  // Plant KPI
-  const ptPass=ptMo.filter(e=>e.tempOk==="Pass"&&e.bleedOk==="Pass").length;
+  // Plant KPI — temp pass + bleed pass
+  const ptTempPass=loMo.filter(e=>tempOk(e.temperature)).length;
+  const ptBleedPass=loMo.filter(e=>e.bleed==="Pass").length;
+  const ptOverall=loMo.filter(e=>tempOk(e.temperature)&&e.bleed==="Pass").length;
+  const ptRate=pct(ptOverall,loMo.length);
+
   // Onsite KPI
   const osPass=osMo.filter(e=>e.result==="Pass").length;
-  // On-time KPI (from onsite entries with releasedDate)
-  const otAll=osMo.filter(e=>e.releasedDate);
-  const otPass=otAll.filter(e=>{const d=Math.round((new Date(e.releasedDate)-new Date(e.testDate))/86400000);return d<=3;}).length;
+  const osRate=pct(osPass,osMo.length);
+
+  // On-time KPI
+  const otAll=osMo.filter(e=>e.releasedDate&&e.testDate);
+  const otPass=otAll.filter(e=>Math.round((new Date(e.releasedDate)-new Date(e.testDate))/86400000)<=3).length;
+  const otRate=pct(otPass,otAll.length);
+
   // Internal KPI
   const itPass=itMo.filter(e=>e.hasSample==="Yes").length;
+  const itRate=pct(itPass,itMo.length);
 
   const kpis=[
-    {ico:"🏭",lbl:"Plant Testing",rate:pct(ptPass,ptMo.length),tg:99,total:ptMo.length,note:"Temp + Bleed per truck"},
-    {ico:"🚧",lbl:"On-Site Testing",rate:pct(osPass,osMo.length),tg:99,total:osMo.length,note:"Per parameter"},
-    {ico:"⏱️",lbl:"On-Time Testing",rate:pct(otPass,otAll.length),tg:100,total:otAll.length,note:"Within 3 days of test date"},
-    {ico:"📋",lbl:"Internal Testing",rate:pct(itPass,itMo.length),tg:100,total:itMo.length,note:"Per batch coverage"},
+    {id:"plant",ico:"🏭",lbl:"Plant Testing",rate:ptRate,tg:99,total:loMo.length,note:"Temp (160-175°C) + Bleed"},
+    {id:"onsite",ico:"🚧",lbl:"On-Site Testing",rate:osRate,tg:99,total:osMo.length,note:"Per parameter"},
+    {id:"ontime",ico:"⏱️",lbl:"On-Time Testing",rate:otRate,tg:100,total:otAll.length,note:"Within 3 days"},
+    {id:"internal",ico:"📋",lbl:"Internal Testing",rate:itRate,tg:100,total:itMo.length,note:"Per batch coverage"},
   ];
+
   document.getElementById("dash-kpis").innerHTML=kpis.map(k=>{
     const col=sc(k.rate,k.tg),bg=sb(k.rate,k.tg),has=k.total>0;
-    return `<div class="dc">
+    return `<div class="dc" onclick="openDrill('${k.id}')">
       <div class="dc-ico">${k.ico}</div>
+      <div style="font-size:10px;color:var(--mu);margin-bottom:2px">Click to see breakdown</div>
       <div class="dc-lbl">${k.lbl}</div>
       <div class="dc-rate" style="color:${col}">${has?k.rate+"%":"—"}</div>
       <div class="dc-note" style="color:${col}">${has?(k.rate>=k.tg?"✓ On target":k.rate>=k.tg-5?"⚠ Near miss":"✗ Below target"):k.note}</div>
@@ -773,40 +783,107 @@ window.renderDash=()=>{
     </div>`;
   }).join("");
 
-  // On-Time detail table
-  const otTb=document.getElementById("dash-ot");
-  if(!osMo.length){otTb.innerHTML=`<tr><td colspan="8" class="empty">No on-site entries this month.</td></tr>`;}
-  else{
-    otTb.innerHTML=osMo.map(e=>{
-      const days=e.releasedDate&&e.testDate?Math.round((new Date(e.releasedDate)-new Date(e.testDate))/86400000):null;
-      const ok=days!==null&&days<=3;
-      return `<tr>
-        <td>${e.date}</td><td>${e.project}</td><td>${e.drNo}</td><td>${e.parameter}</td>
-        <td>${e.testDate||"—"}</td>
-        <td><input type="date" value="${e.releasedDate||""}" style="padding:4px 8px;font-size:12px;width:130px"
-          onchange="saveOsRelDate('${e.key}',this.value)"/></td>
-        <td>${days!==null?days+"d":"—"}</td>
-        <td>${e.releasedDate?P(ok,"On time","Late ("+days+"d)"):"<span style='font-size:11px;color:var(--mu)'>Pending</span>"}</td>
-      </tr>`;
-    }).join("");
-  }
-
-  // Today deliveries
-  const tod=deliveries.filter(e=>e.date===TODAY).slice(0,8);
-  document.getElementById("dash-today").innerHTML=tod.length
-    ?tod.map(e=>`<tr><td>${e.project}</td><td>${e.drNo}</td><td>${e.truckNo}</td><td><span class="pill p${e.shift.toLowerCase()}">${e.shift}</span></td><td style="text-align:right">${fmt(e.volume)} T</td></tr>`).join("")
-    :`<tr><td colspan="5" class="empty">No deliveries today.</td></tr>`;
-
-  // Onsite this month
-  document.getElementById("dash-os").innerHTML=osMo.length
-    ?osMo.slice(0,10).map(e=>`<tr><td>${e.project}</td><td>${e.drNo}</td><td>${e.parameter}</td><td>${P(e.result==="Pass","Pass","Fail")}</td></tr>`).join("")
-    :`<tr><td colspan="4" class="empty">No samples this month.</td></tr>`;
+  // On-Time entry table
+  renderDashOT(osMo);
 };
 
-// Save released date directly from dashboard
-window.saveOsRelDate=async(key,val)=>{
+function renderDashOT(osMo){
+  const tb=document.getElementById("dash-ot");
+  if(!osMo.length){tb.innerHTML=`<tr><td colspan="8" class="empty">No on-site entries this month.</td></tr>`;return;}
+  tb.innerHTML=osMo.map(e=>{
+    const days=e.releasedDate&&e.testDate?Math.round((new Date(e.releasedDate)-new Date(e.testDate))/86400000):null;
+    const ok=days!==null&&days<=3;
+    return `<tr>
+      <td>${e.date}</td><td>${e.client}</td><td>${e.location}</td><td>${e.parameter}</td>
+      <td>${e.testDate||"—"}</td>
+      <td><input type="date" value="${e.releasedDate||""}" style="padding:4px 8px;font-size:12px;width:130px"
+        onchange="saveRelDate('${e.key}',this.value)"/></td>
+      <td>${days!==null?days+"d":"—"}</td>
+      <td>${e.releasedDate?P(ok,"On time","Late ("+days+"d)"):"<span style='font-size:11px;color:var(--mu)'>Pending</span>"}</td>
+    </tr>`;
+  }).join("");
+}
+
+window.saveRelDate=async(key,val)=>{
   await set(ref(db,`onsite/${key}/releasedDate`),val);
   toast("Released date saved!");
+};
+
+// DRILL-DOWNS
+window.openDrill=(type)=>{
+  // Close all first
+  ["plant","onsite","internal"].forEach(t=>document.getElementById(`drill-${t}`).classList.remove("open"));
+  if(type==="ontime") return; // on-time is in the table below
+  document.getElementById(`drill-${type}`).classList.add("open");
+  document.getElementById(`drill-${type}`).scrollIntoView({behavior:"smooth",block:"nearest"});
+  if(type==="plant") renderDrillPlant();
+  if(type==="onsite") renderDrillOnsite();
+  if(type==="internal") renderDrillInternal();
+};
+window.closeDrill=(type)=>document.getElementById(`drill-${type}`).classList.remove("open");
+
+window.renderDrillPlant=()=>{
+  const mo=Number(document.getElementById("dash-mo").value);
+  const fd=document.getElementById("drill-date").value;
+  const f=loads.filter(e=>new Date(e.date).getMonth()===mo&&(!fd||e.date===fd));
+  const tb=document.getElementById("drill-plant-tb");
+  if(!f.length){tb.innerHTML=`<tr><td colspan="11" class="empty">No data.</td></tr>`;return;}
+  tb.innerHTML=f.map(e=>{
+    const tOk=tempOk(e.temperature),bOk=e.bleed==="Pass",ok=tOk&&bOk;
+    return `<tr>
+      <td>${e.date}</td><td>${e.loadNo}</td><td>${e.client}</td><td>${e.location}</td><td>${e.jmf||"—"}</td>
+      <td style="text-align:right">${fmt(e.volume)}</td>
+      <td class="${tOk?"temp-ok":"temp-warn"}">${fmtT(e.temperature)}°C</td>
+      <td>${P(tOk,"✓ In range","✗ Out of range")}</td>
+      <td>${P(bOk,"Pass","Fail")}</td>
+      <td>${e.labTech||"—"}</td>
+      <td>${P(ok,"✓ Pass","✗ Fail")}</td>
+    </tr>`;
+  }).join("");
+  const tot=f.reduce((s,e)=>s+e.volume,0);
+  const avgT=f.reduce((s,e)=>s+e.temperature,0)/f.length;
+  const bp=f.filter(e=>e.bleed==="Pass").length;
+  document.getElementById("drill-cnt").textContent=`${f.length} loads`;
+  document.getElementById("drill-vol").innerHTML=`<strong>${fmt(tot)} T</strong>`;
+  document.getElementById("drill-avgtemp").innerHTML=`<span class="${tempOk(avgT)?"temp-ok":"temp-warn"}">${fmtT(avgT)}°C avg</span>`;
+  document.getElementById("drill-bleed").textContent=`${pct(bp,f.length)}% pass`;
+};
+
+window.renderDrillOnsite=()=>{
+  const mo=Number(document.getElementById("dash-mo").value);
+  const fd=document.getElementById("drill-os-date").value;
+  const f=onsite.filter(e=>new Date(e.date).getMonth()===mo&&(!fd||e.date===fd));
+  const tb=document.getElementById("drill-os-tb");
+  if(!f.length){tb.innerHTML=`<tr><td colspan="9" class="empty">No data.</td></tr>`;return;}
+  tb.innerHTML=f.map(e=>{
+    const days=e.releasedDate&&e.testDate?Math.round((new Date(e.releasedDate)-new Date(e.testDate))/86400000):null;
+    const ok=days!==null&&days<=3;
+    return `<tr>
+      <td>${e.date}</td><td>${e.client}</td><td>${e.location}</td><td>${e.parameter}</td>
+      <td>${P(e.result==="Pass","Pass","Fail")}</td>
+      <td>${e.testDate||"—"}</td><td>${e.releasedDate||"—"}</td>
+      <td>${days!==null?days+"d":"—"}</td>
+      <td>${e.releasedDate?P(ok,"On time","Late"):"<span style='font-size:11px;color:var(--mu)'>Pending</span>"}</td>
+    </tr>`;
+  }).join("");
+};
+
+window.renderDrillInternal=()=>{
+  const mo=Number(document.getElementById("dash-mo").value);
+  const fd=document.getElementById("drill-it-date").value;
+  const f=internal.filter(e=>new Date(e.date).getMonth()===mo&&(!fd||e.date===fd));
+  const tb=document.getElementById("drill-it-tb");
+  if(!f.length){tb.innerHTML=`<tr><td colspan="10" class="empty">No data.</td></tr>`;return;}
+  const PK=["extraction","gradation","gmm","stability","flow"];
+  tb.innerHTML=f.map(e=>{
+    const allP=e.hasSample==="Yes"&&PK.every(k=>e[k]==="Pass");
+    return `<tr>
+      <td>${e.date}</td><td>${e.client}</td><td>${e.location}</td>
+      <td>${P(e.hasSample==="Yes","Yes","No")}</td>
+      ${e.hasSample==="Yes"?PK.map(k=>`<td>${P(e[k]==="Pass","P","F")}</td>`).join(""):"<td>—</td><td>—</td><td>—</td><td>—</td><td>—</td>"}
+      <td>${e.hasSample==="Yes"?P(allP,"✓ Pass","✗ Fail"):"—"}</td>
+    </tr>`;
+  }).join("");
 };
 
 // DELETE
@@ -843,7 +920,7 @@ window.toggleRole=async(uid,cur)=>{await set(ref(db,`users/${uid}/role`),cur==="
 
 // TABS
 window.goTab=(tab,btn)=>{
-  ["dl","pt","os","it","dash","adm"].forEach(t=>{
+  ["dl","os","it","dash","adm"].forEach(t=>{
     const el=document.getElementById(`tab-${t}`);if(el)el.style.display=t===tab?"block":"none";
   });
   document.querySelectorAll(".nt").forEach(b=>b.classList.remove("on"));
