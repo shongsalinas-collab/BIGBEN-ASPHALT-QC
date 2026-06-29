@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Bigben Asphalt QC — Daily Lay</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f4f4f2;color:#1a1a1a;min-height:100vh;}
+:root{--green:#1D9E75;--green-light:#E1F5EE;--green-dark:#0F6E56;--blue:#378ADD;--blue-light:#E6F1FB;--red:#A32D2D;--red-light:#FCEBEB;--amber:#BA7517;--border:#e5e5e3;--surface:#fff;--surface2:#f7f7f5;--muted:#888;}
+#auth-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px;}
+.auth-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:40px;width:100%;max-width:400px;box-shadow:0 4px 24px rgba(0,0,0,0.06);}
+.auth-logo{font-size:11px;font-weight:600;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;margin-bottom:6px;}
+.auth-title{font-size:22px;font-weight:500;margin-bottom:28px;}
+.auth-error{background:var(--red-light,#fcebeb);color:var(--red);border-radius:8px;padding:10px 14px;font-size:13px;margin-bottom:14px;display:none;}
+#app-screen{display:none;min-height:100vh;}
+.topbar{background:var(--surface);border-bottom:1px solid var(--border);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+.topbar-org{font-size:10px;font-weight:600;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;}
+.topbar-title{font-size:16px;font-weight:500;}
+.topbar-right{display:flex;align-items:center;gap:12px;}
+.user-email{font-size:12px;color:var(--muted);}
+.rbadge{font-size:11px;font-weight:500;padding:2px 8px;border-radius:99px;}
+.radmin{background:#EEEDFE;color:#3C3489;}
+.ruser{background:var(--blue-light);color:#185FA5;}
+.stats-bar{background:var(--surface);border-bottom:1px solid var(--border);padding:12px 24px;display:flex;gap:24px;flex-wrap:wrap;}
+.sval{font-size:20px;font-weight:500;}
+.slbl{font-size:11px;color:var(--muted);}
+.tabs{padding:16px 24px 0;display:flex;gap:4px;flex-wrap:wrap;}
+.tbtn{padding:7px 14px;border-radius:8px;border:1px solid var(--border);background:transparent;cursor:pointer;font-size:13px;color:#666;font-family:inherit;}
+.tbtn.on{background:var(--surface);border-color:#aaa;color:#1a1a1a;font-weight:500;}
+.main{padding:20px 24px;}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:20px;}
+.card-title{font-size:11px;font-weight:600;letter-spacing:.06em;color:var(--muted);text-transform:uppercase;margin-bottom:14px;}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:10px;align-items:end;}
+.fld{display:flex;flex-direction:column;gap:3px;}
+.fld label{font-size:10px;color:var(--muted);font-weight:500;}
+input,select{padding:8px 10px;border-radius:6px;border:1px solid var(--border);font-size:13px;font-family:inherit;background:var(--surface);color:#1a1a1a;width:100%;}
+input:focus,select:focus{outline:none;border-color:var(--green);}
+.btn{padding:7px 16px;border-radius:6px;border:none;font-weight:500;font-size:13px;cursor:pointer;font-family:inherit;white-space:nowrap;}
+.bg{background:var(--green);color:#fff;}
+.bb{background:var(--blue);color:#fff;}
+.br{background:var(--red);color:#fff;}
+.bgr{background:#ddd;color:#555;}
+.sm{padding:4px 10px;font-size:11px;}
+.tbar{padding:12px 16px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;border-bottom:1px solid var(--border);background:var(--surface2);}
+.flbl{font-size:12px;color:var(--muted);}
+.fsel{padding:6px 10px;border-radius:6px;border:1px solid var(--border);font-size:12px;font-family:inherit;background:var(--surface);}
+.tbl{width:100%;border-collapse:collapse;font-size:13px;}
+.tbl th{text-align:left;padding:9px 12px;border-bottom:2px solid var(--border);color:var(--muted);font-weight:500;font-size:11px;white-space:nowrap;background:var(--surface2);}
+.tbl td{padding:8px 12px;border-bottom:1px solid #f0f0ee;vertical-align:middle;}
+.tbl tr:last-child td{border-bottom:none;}
+.tbl tr:hover td{background:#fafaf8;}
+.tfoot td{background:var(--surface2);font-weight:500;}
+.ovx{overflow-x:auto;}
+.pill{display:inline-block;padding:2px 9px;border-radius:99px;font-size:11px;font-weight:500;}
+.pam{background:var(--blue-light);color:#185FA5;}
+.ppm{background:#EEEDFE;color:#3C3489;}
+.pgr{background:var(--green-light);color:var(--green-dark);}
+.sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;}
+.scard{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px;}
+.sc-t{font-size:14px;font-weight:500;margin-bottom:3px;}
+.sc-s{font-size:11px;color:var(--muted);margin-bottom:12px;}
+.sc-st{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;}
+.sc-sv{background:var(--surface2);border-radius:8px;padding:8px 12px;flex:1 1 80px;}
+.sv-v{font-size:15px;font-weight:500;}
+.sv-l{font-size:10px;color:var(--muted);}
+.mtag{display:inline-block;padding:2px 7px;border-radius:4px;background:var(--surface2);color:var(--muted);font-size:11px;margin:2px 2px 0 0;}
+.empty{text-align:center;color:#ccc;padding:32px;font-size:13px;}
+#toast{position:fixed;bottom:24px;right:24px;background:#1a1a1a;color:#fff;padding:12px 20px;border-radius:8px;font-size:13px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:999;}
+#toast.on{opacity:1;}
+.mbg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:200;align-items:center;justify-content:center;}
+.mbg.open{display:flex;}
+.modal{background:var(--surface);border-radius:16px;padding:28px;width:100%;max-width:420px;margin:20px;}
+</style>
+</head>
+<body>
+<div id="auth-screen">
+  <div class="auth-card">
+    <div class="auth-logo">Bigben Readymix · Asphalt Division</div>
+    <div class="auth-title">Daily Lay System</div>
+    <div class="auth-error" id="auth-err"></div>
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <div class="fld"><label>Email</label><input type="email" id="l-email" placeholder="your@email.com"/></div>
+      <div class="fld"><label>Password</label><input type="password" id="l-pass" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"/></div>
+      <button class="btn bg" onclick="doLogin()" style="margin-top:4px;">Sign in</button>
+    </div>
+    <p style="font-size:11px;color:var(--muted);margin-top:16px;text-align:center;">Contact your administrator to create an account.</p>
+  </div>
+</div>
+
+<div id="app-screen">
+  <div class="topbar">
+    <div><div class="topbar-org">Bigben Readymix · Asphalt Division</div><div class="topbar-title">Daily Lay Master Data</div></div>
+    <div class="topbar-right">
+      <div style="text-align:right"><div class="user-email" id="uemail"></div><span class="rbadge" id="rbadge"></span></div>
+      <button class="btn bgr sm" onclick="doLogout()">Sign out</button>
+    </div>
+  </div>
+  <div class="stats-bar">
+    <div><div class="sval" id="s-total">0</div><div class="slbl">Total deliveries</div></div>
+    <div><div class="sval" id="s-vol">0.00 T</div><div class="slbl">Total volume</div></div>
+    <div><div class="sval" id="s-proj">0</div><div class="slbl">Active projects</div></div>
+    <div><div class="sval" id="s-today">0</div><div class="slbl">Today's deliveries</div></div>
+  </div>
+  <div class="tabs">
+    <button class="tbtn on" onclick="switchTab('entries',this)">All Entries</button>
+    <button class="tbtn" onclick="switchTab('daily',this)">Daily Summary</button>
+    <button class="tbtn" onclick="switchTab('projects',this)">By Project</button>
+    <button class="tbtn" id="admin-tab" style="display:none" onclick="switchTab('admin',this)">⚙ Admin</button>
+  </div>
+  <div class="main">
+
+    <!-- FORM -->
+    <div class="card" id="form-card">
+      <div class="card-title">New delivery entry</div>
+      <div class="fgrid">
+        <div class="fld">
+          <label>Project *</label>
+          <div style="display:flex;gap:6px">
+            <select id="f-proj" style="flex:1"><option value="">— select —</option></select>
+            <button class="btn bb sm" onclick="showNP()" title="Add project">+</button>
+          </div>
+          <div id="np-row" style="display:none;margin-top:6px;display:none">
+            <div style="display:flex;gap:5px">
+              <input id="np-inp" placeholder="New project name" style="flex:1"/>
+              <button class="btn bg sm" onclick="confirmNP()">✓</button>
+              <button class="btn bgr sm" onclick="cancelNP()">✕</button>
+            </div>
+          </div>
+        </div>
+        <div class="fld"><label>Client / Contractor</label><input id="f-client" placeholder="e.g. DPWH"/></div>
+        <div class="fld"><label>Location / Station</label><input id="f-loc" placeholder="e.g. Sta. 0+000"/></div>
+        <div class="fld"><label>Date *</label><input type="date" id="f-date"/></div>
+        <div class="fld"><label>Shift</label><select id="f-shift"><option>AM</option><option>PM</option></select></div>
+        <div class="fld"><label>DR No. *</label><input id="f-dr" placeholder="DR-00123"/></div>
+        <div class="fld"><label>Truck No. *</label><input id="f-truck" placeholder="BBM-001"/></div>
+        <div class="fld"><label>Mix Type</label>
+          <select id="f-mix">
+            <option>Base Course</option><option>Binder Course (BC)</option>
+            <option>Wearing Course</option><option>OGFC</option><option>Others</option>
+          </select>
+        </div>
+        <div class="fld"><label>Volume (tons) *</label><input type="number" id="f-vol" min="0" step="0.01" placeholder="15.50"/></div>
+        <div class="fld" style="justify-content:flex-end"><button class="btn bg" onclick="addEntry()">Add Entry</button></div>
+      </div>
+    </div>
+
+    <!-- ENTRIES -->
+    <div id="tab-entries">
+      <div class="card" style="padding:0">
+        <div class="tbar">
+          <span class="flbl">Filter:</span>
+          <select class="fsel" id="fp-e" onchange="renderEntries()"><option value="">All projects</option></select>
+          <select class="fsel" id="fd-e" onchange="renderEntries()"><option value="">All dates</option></select>
+          <select class="fsel" id="fs-e" onchange="renderEntries()"><option value="">All shifts</option><option>AM</option><option>PM</option></select>
+          <button class="btn bgr sm" onclick="clearF()">Clear</button>
+        </div>
+        <div class="ovx">
+          <table class="tbl">
+            <thead><tr><th>Date</th><th>Shift</th><th>Project</th><th>Client</th><th>Location</th><th>DR No.</th><th>Truck No.</th><th>Mix Type</th><th style="text-align:right">Volume (T)</th><th>By</th><th></th></tr></thead>
+            <tbody id="etbody"></tbody>
+            <tfoot><tr class="tfoot"><td colspan="8" id="ecount" style="color:var(--muted);font-size:12px;padding:8px 12px"></td><td style="text-align:right;padding:8px 12px" id="etotal"></td><td colspan="2"></td></tr></tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- DAILY -->
+    <div id="tab-daily" style="display:none">
+      <div class="card" style="padding:0">
+        <div class="tbar">
+          <span class="flbl">Project:</span>
+          <select class="fsel" id="fp-d" onchange="renderDaily()"><option value="">All projects</option></select>
+        </div>
+        <div class="ovx">
+          <table class="tbl">
+            <thead><tr><th>Date</th><th>Project(s)</th><th>AM Trucks</th><th>PM Trucks</th><th>Total Trucks</th><th style="text-align:right">Total Volume (T)</th><th>Mix Types</th></tr></thead>
+            <tbody id="dtbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECTS -->
+    <div id="tab-projects" style="display:none">
+      <div class="sgrid" id="pgrid"></div>
+    </div>
+
+    <!-- ADMIN -->
+    <div id="tab-admin" style="display:none">
+      <div class="card">
+        <div class="card-title">Create new user</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end">
+          <div class="fld" style="flex:1 1 170px"><label>Email</label><input type="email" id="nu-email" placeholder="user@bigben.com"/></div>
+          <div class="fld" style="flex:1 1 140px"><label>Password</label><input type="password" id="nu-pass" placeholder="min. 6 chars"/></div>
+          <div class="fld" style="flex:1 1 130px"><label>Name</label><input id="nu-name" placeholder="Full name"/></div>
+          <div class="fld" style="flex:0 0 auto"><label>Role</label><select id="nu-role"><option value="user">Regular user</option><option value="admin">Admin</option></select></div>
+          <button class="btn bg" onclick="createUser()">Create user</button>
+        </div>
+        <div id="cu-msg" style="font-size:12px;margin-top:10px"></div>
+      </div>
+      <div class="card">
+        <div class="card-title">User management</div>
+        <div class="ovx">
+          <table class="tbl">
+            <thead><tr><th>Email</th><th>Name</th><th>Role</th><th>Action</th></tr></thead>
+            <tbody id="utbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- DELETE MODAL -->
+<div class="mbg" id="del-modal">
+  <div class="modal">
+    <div style="font-size:16px;font-weight:500;margin-bottom:10px">Delete this entry?</div>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:20px">This action cannot be undone.</p>
+    <div style="display:flex;gap:8px;justify-content:flex-end">
+      <button class="btn bgr" onclick="closeDel()">Cancel</button>
+      <button class="btn br" onclick="confirmDel()">Delete</button>
+    </div>
+  </div>
+</div>
+<div id="toast"></div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, signOut, createUserWithEmailAndPassword, onAuthStateChanged }
+  from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getDatabase, ref, push, set, remove, onValue, get }
+  from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+const app = initializeApp({
+  apiKey:"AIzaSyAuiACQrF_nwYfEC1iq4NIAm1Ty6dP_0Kg",
+  authDomain:"bigben-asphalt-qc-a067e.firebaseapp.com",
+  databaseURL:"https://bigben-asphalt-qc-a067e-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId:"bigben-asphalt-qc-a067e",
+  storageBucket:"bigben-asphalt-qc-a067e.firebasestorage.app",
+  messagingSenderId:"540924342668",
+  appId:"1:540924342668:web:c3e6d0f61c208f32cfa6a9"
+});
+const auth=getAuth(app), db=getDatabase(app);
+
+let CU=null, ROLE="user", entries=[], users={}, delKey=null;
+const TODAY=new Date().toISOString().split("T")[0];
+const fmt=n=>Number(n||0).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+const toast=msg=>{const t=document.getElementById("toast");t.textContent=msg;t.classList.add("on");setTimeout(()=>t.classList.remove("on"),2500);};
+
+// AUTH
+window.doLogin=async()=>{
+  const e=document.getElementById("l-email").value.trim(), p=document.getElementById("l-pass").value;
+  try{await signInWithEmailAndPassword(auth,e,p);}
+  catch{const er=document.getElementById("auth-err");er.textContent="Invalid email or password.";er.style.display="block";}
+};
+window.doLogout=async()=>{await signOut(auth);};
+
+onAuthStateChanged(auth,async user=>{
+  if(user){
+    CU=user;
+    const snap=await get(ref(db,`users/${user.uid}/role`));
+    ROLE=snap.exists()?snap.val():"user";
+    document.getElementById("auth-screen").style.display="none";
+    document.getElementById("app-screen").style.display="block";
+    document.getElementById("uemail").textContent=user.email;
+    const rb=document.getElementById("rbadge");
+    rb.textContent=ROLE==="admin"?"Admin":"User";
+    rb.className="rbadge "+(ROLE==="admin"?"radmin":"ruser");
+    document.getElementById("admin-tab").style.display=ROLE==="admin"?"":"none";
+    document.getElementById("f-date").value=TODAY;
+    startListeners();
+  } else {
+    document.getElementById("auth-screen").style.display="flex";
+    document.getElementById("app-screen").style.display="none";
+  }
+});
+
+function startListeners(){
+  onValue(ref(db,"entries"),snap=>{
+    entries=[];
+    if(snap.exists()) snap.forEach(c=>entries.push({key:c.key,...c.val()}));
+    entries.sort((a,b)=>b.date.localeCompare(a.date)||b.timestamp-a.timestamp);
+    updateStats(); updateFilters(); renderEntries(); renderDaily(); renderProjects();
+  });
+  onValue(ref(db,"projects"),snap=>{
+    const sel=document.getElementById("f-proj"), cur=sel.value;
+    sel.innerHTML='<option value="">— select —</option>';
+    if(snap.exists()) snap.forEach(c=>{const o=document.createElement("option");o.value=c.val();o.textContent=c.val();sel.appendChild(o);});
+    if(cur) sel.value=cur;
+  });
+  if(ROLE==="admin"){
+    onValue(ref(db,"users"),snap=>{
+      users={};
+      if(snap.exists()) snap.forEach(c=>{users[c.key]={uid:c.key,...c.val()};});
+      renderUsers();
+    });
+  }
+}
+
+// PROJECT
+window.showNP=()=>{document.getElementById("np-row").style.display="block";document.getElementById("np-inp").focus();};
+window.cancelNP=()=>{document.getElementById("np-row").style.display="none";document.getElementById("np-inp").value="";};
+window.confirmNP=async()=>{
+  const n=document.getElementById("np-inp").value.trim();
+  if(!n) return;
+  await push(ref(db,"projects"),n);
+  cancelNP(); toast("Project added!");
+};
+
+// ADD ENTRY
+window.addEntry=async()=>{
+  const proj=document.getElementById("f-proj").value, dr=document.getElementById("f-dr").value.trim(),
+    truck=document.getElementById("f-truck").value.trim(), vol=document.getElementById("f-vol").value,
+    date=document.getElementById("f-date").value;
+  if(!proj||!dr||!truck||!vol||!date){toast("Fill in all required fields (*)");return;}
+  await push(ref(db,"entries"),{
+    project:proj,date,shift:document.getElementById("f-shift").value,
+    client:document.getElementById("f-client").value.trim(),
+    location:document.getElementById("f-loc").value.trim(),
+    drNo:dr,truckNo:truck,mixType:document.getElementById("f-mix").value,
+    volume:Number(vol),addedBy:CU.email,timestamp:Date.now()
+  });
+  document.getElementById("f-dr").value="";
+  document.getElementById("f-truck").value="";
+  document.getElementById("f-vol").value="";
+  toast("Entry added!");
+};
+
+// STATS
+function updateStats(){
+  document.getElementById("s-total").textContent=entries.length;
+  document.getElementById("s-vol").textContent=fmt(entries.reduce((s,e)=>s+e.volume,0))+" T";
+  document.getElementById("s-proj").textContent=[...new Set(entries.map(e=>e.project))].length;
+  document.getElementById("s-today").textContent=entries.filter(e=>e.date===TODAY).length;
+}
+
+// FILTERS
+function updateFilters(){
+  const projs=[...new Set(entries.map(e=>e.project))].sort();
+  const dates=[...new Set(entries.map(e=>e.date))].sort().reverse();
+  ["fp-e","fp-d"].forEach(id=>{
+    const s=document.getElementById(id),c=s.value;
+    s.innerHTML='<option value="">All projects</option>';
+    projs.forEach(p=>{const o=document.createElement("option");o.value=p;o.textContent=p;s.appendChild(o);});
+    if(c) s.value=c;
+  });
+  const fd=document.getElementById("fd-e"),c=fd.value;
+  fd.innerHTML='<option value="">All dates</option>';
+  dates.forEach(d=>{const o=document.createElement("option");o.value=d;o.textContent=d;fd.appendChild(o);});
+  if(c) fd.value=c;
+}
+
+window.clearF=()=>{
+  ["fp-e","fd-e","fs-e"].forEach(id=>document.getElementById(id).value="");
+  renderEntries();
+};
+
+window.renderEntries=()=>{
+  const fp=document.getElementById("fp-e").value, fd=document.getElementById("fd-e").value, fs=document.getElementById("fs-e").value;
+  const f=entries.filter(e=>(!fp||e.project===fp)&&(!fd||e.date===fd)&&(!fs||e.shift===fs));
+  const tb=document.getElementById("etbody");
+  if(!f.length){tb.innerHTML=`<tr><td colspan="11" class="empty">No entries match the filter.</td></tr>`;return;}
+  tb.innerHTML=f.map(e=>`<tr>
+    <td>${e.date}</td>
+    <td><span class="pill p${e.shift.toLowerCase()}">${e.shift}</span></td>
+    <td>${e.project}</td><td>${e.client||"—"}</td><td>${e.location||"—"}</td>
+    <td>${e.drNo}</td><td>${e.truckNo}</td><td>${e.mixType}</td>
+    <td style="text-align:right">${fmt(e.volume)}</td>
+    <td style="font-size:11px;color:var(--muted)">${e.addedBy||""}</td>
+    <td>${ROLE==="admin"?`<button class="btn br sm" onclick="openDel('${e.key}')">Del</button>`:""}</td>
+  </tr>`).join("");
+  const tot=f.reduce((s,e)=>s+e.volume,0);
+  document.getElementById("ecount").textContent=`${f.length} truck${f.length!==1?"s":""}`;
+  document.getElementById("etotal").innerHTML=`<strong>${fmt(tot)} T</strong>`;
+};
+
+window.renderDaily=()=>{
+  const fp=document.getElementById("fp-d").value;
+  const f=entries.filter(e=>!fp||e.project===fp);
+  const byD={};
+  f.forEach(e=>(byD[e.date]=byD[e.date]||[]).push(e));
+  const dates=Object.keys(byD).sort().reverse();
+  const tb=document.getElementById("dtbody");
+  if(!dates.length){tb.innerHTML=`<tr><td colspan="7" class="empty">No data yet.</td></tr>`;return;}
+  tb.innerHTML=dates.map(d=>{
+    const r=byD[d],am=r.filter(x=>x.shift==="AM").length,pm=r.filter(x=>x.shift==="PM").length;
+    const tot=r.reduce((s,x)=>s+x.volume,0);
+    return `<tr>
+      <td><strong>${d}</strong></td>
+      <td>${[...new Set(r.map(x=>x.project))].join(", ")}</td>
+      <td>${am}</td><td>${pm}</td>
+      <td><span class="pill pgr">${r.length} truck${r.length!==1?"s":""}</span></td>
+      <td style="text-align:right"><strong>${fmt(tot)} T</strong></td>
+      <td style="font-size:11px;color:var(--muted)">${[...new Set(r.map(x=>x.mixType))].join(", ")}</td>
+    </tr>`;
+  }).join("");
+};
+
+function renderProjects(){
+  const byP={};
+  entries.forEach(e=>(byP[e.project]=byP[e.project]||[]).push(e));
+  const grid=document.getElementById("pgrid");
+  const projs=Object.keys(byP).sort();
+  if(!projs.length){grid.innerHTML=`<div class="empty">No data yet.</div>`;return;}
+  grid.innerHTML=projs.map(p=>{
+    const r=byP[p],tot=r.reduce((s,x)=>s+x.volume,0),days=[...new Set(r.map(x=>x.date))].length;
+    const clients=[...new Set(r.map(x=>x.client).filter(Boolean))].join(", ")||"—";
+    const mixes=[...new Set(r.map(x=>x.mixType))];
+    return `<div class="scard">
+      <div class="sc-t">${p}</div><div class="sc-s">${clients}</div>
+      <div class="sc-st">
+        <div class="sc-sv"><div class="sv-v">${fmt(tot)} T</div><div class="sv-l">Total volume</div></div>
+        <div class="sc-sv"><div class="sv-v">${r.length}</div><div class="sv-l">Total trucks</div></div>
+        <div class="sc-sv"><div class="sv-v">${days}</div><div class="sv-l">Paving days</div></div>
+      </div>
+      <div>${mixes.map(m=>`<span class="mtag">${m}</span>`).join("")}</div>
+    </div>`;
+  }).join("");
+}
+
+// DELETE
+window.openDel=key=>{delKey=key;document.getElementById("del-modal").classList.add("open");};
+window.closeDel=()=>{delKey=null;document.getElementById("del-modal").classList.remove("open");};
+window.confirmDel=async()=>{
+  if(!delKey) return;
+  await remove(ref(db,`entries/${delKey}`));
+  closeDel(); toast("Entry deleted.");
+};
+
+// ADMIN: CREATE USER
+window.createUser=async()=>{
+  const email=document.getElementById("nu-email").value.trim(),
+    pass=document.getElementById("nu-pass").value,
+    name=document.getElementById("nu-name").value.trim(),
+    role=document.getElementById("nu-role").value;
+  const msg=document.getElementById("cu-msg");
+  if(!email||!pass){msg.textContent="Email and password required.";msg.style.color="var(--red)";return;}
+  try{
+    const cred=await createUserWithEmailAndPassword(auth,email,pass);
+    await set(ref(db,`users/${cred.user.uid}`),{email,name,role,createdAt:Date.now()});
+    msg.textContent=`✓ User ${email} created!`;msg.style.color="var(--green-dark)";
+    ["nu-email","nu-pass","nu-name"].forEach(id=>document.getElementById(id).value="");
+    toast("User created!");
+  }catch(e){msg.textContent=e.message;msg.style.color="var(--red)";}
+};
+
+function renderUsers(){
+  const tb=document.getElementById("utbody"), list=Object.values(users);
+  if(!list.length){tb.innerHTML=`<tr><td colspan="4" class="empty">No users yet.</td></tr>`;return;}
+  tb.innerHTML=list.map(u=>`<tr>
+    <td>${u.email}</td><td>${u.name||"—"}</td>
+    <td><span class="rbadge ${u.role==="admin"?"radmin":"ruser"}">${u.role==="admin"?"Admin":"User"}</span></td>
+    <td>${u.uid!==CU.uid
+      ?`<button class="btn sm ${u.role==="admin"?"bgr":"bb"}" onclick="toggleRole('${u.uid}','${u.role}')">
+          ${u.role==="admin"?"→ User":"→ Admin"}</button>`
+      :`<span style="font-size:11px;color:var(--muted)">(you)</span>`}
+    </td>
+  </tr>`).join("");
+}
+
+window.toggleRole=async(uid,cur)=>{
+  const nr=cur==="admin"?"user":"admin";
+  await set(ref(db,`users/${uid}/role`),nr);
+  toast(`Role updated to ${nr}.`);
+};
+
+// TABS
+window.switchTab=(tab,btn)=>{
+  ["entries","daily","projects","admin"].forEach(t=>document.getElementById(`tab-${t}`).style.display=t===tab?"block":"none");
+  document.querySelectorAll(".tbtn").forEach(b=>b.classList.remove("on"));
+  btn.classList.add("on");
+  document.getElementById("form-card").style.display=tab==="admin"?"none":"block";
+};
+</script>
+</body>
+</html>
