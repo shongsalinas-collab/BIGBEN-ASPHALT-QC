@@ -3,224 +3,360 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Bigben Asphalt QC — Daily Lay</title>
+<title>Bigben Asphalt QC System</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f4f4f2;color:#1a1a1a;min-height:100vh;}
-:root{--green:#1D9E75;--green-light:#E1F5EE;--green-dark:#0F6E56;--blue:#378ADD;--blue-light:#E6F1FB;--red:#A32D2D;--red-light:#FCEBEB;--amber:#BA7517;--border:#e5e5e3;--surface:#fff;--surface2:#f7f7f5;--muted:#888;}
-#auth-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px;}
-.auth-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:40px;width:100%;max-width:400px;box-shadow:0 4px 24px rgba(0,0,0,0.06);}
-.auth-logo{font-size:11px;font-weight:600;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;margin-bottom:6px;}
-.auth-title{font-size:22px;font-weight:500;margin-bottom:28px;}
-.auth-error{background:var(--red-light,#fcebeb);color:var(--red);border-radius:8px;padding:10px 14px;font-size:13px;margin-bottom:14px;display:none;}
-#app-screen{display:none;min-height:100vh;}
-.topbar{background:var(--surface);border-bottom:1px solid var(--border);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
-.topbar-org{font-size:10px;font-weight:600;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;}
-.topbar-title{font-size:16px;font-weight:500;}
-.topbar-right{display:flex;align-items:center;gap:12px;}
-.user-email{font-size:12px;color:var(--muted);}
+:root{--g:#1D9E75;--gl:#E1F5EE;--gd:#0F6E56;--b:#378ADD;--bl:#E6F1FB;--r:#A32D2D;--rl:#FCEBEB;--a:#BA7517;--al:#FAEEDA;--pu:#3C3489;--pul:#EEEDFE;--br:#e5e5e3;--sf:#fff;--s2:#f7f7f5;--mu:#888;}
+#auth{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px;}
+.acard{background:var(--sf);border:1px solid var(--br);border-radius:16px;padding:40px;width:100%;max-width:400px;box-shadow:0 4px 24px rgba(0,0,0,.06);}
+.aorg{font-size:11px;font-weight:600;letter-spacing:.08em;color:var(--mu);text-transform:uppercase;margin-bottom:6px;}
+.atitle{font-size:22px;font-weight:500;margin-bottom:28px;}
+.aerr{background:var(--rl);color:var(--r);border-radius:8px;padding:10px 14px;font-size:13px;margin-bottom:14px;display:none;}
+#app{display:none;}
+.topbar{background:var(--sf);border-bottom:1px solid var(--br);padding:0 20px;display:flex;align-items:stretch;justify-content:space-between;position:sticky;top:0;z-index:100;}
+.tb-brand{display:flex;flex-direction:column;justify-content:center;gap:1px;padding:10px 0;}
+.tb-org{font-size:10px;font-weight:600;letter-spacing:.08em;color:var(--mu);text-transform:uppercase;}
+.tb-name{font-size:15px;font-weight:500;}
+.tb-right{display:flex;align-items:center;gap:10px;}
+.ue{font-size:12px;color:var(--mu);}
 .rbadge{font-size:11px;font-weight:500;padding:2px 8px;border-radius:99px;}
-.radmin{background:#EEEDFE;color:#3C3489;}
-.ruser{background:var(--blue-light);color:#185FA5;}
-.stats-bar{background:var(--surface);border-bottom:1px solid var(--border);padding:12px 24px;display:flex;gap:24px;flex-wrap:wrap;}
-.sval{font-size:20px;font-weight:500;}
-.slbl{font-size:11px;color:var(--muted);}
-.tabs{padding:16px 24px 0;display:flex;gap:4px;flex-wrap:wrap;}
-.tbtn{padding:7px 14px;border-radius:8px;border:1px solid var(--border);background:transparent;cursor:pointer;font-size:13px;color:#666;font-family:inherit;}
-.tbtn.on{background:var(--surface);border-color:#aaa;color:#1a1a1a;font-weight:500;}
-.main{padding:20px 24px;}
-.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:20px;}
-.card-title{font-size:11px;font-weight:600;letter-spacing:.06em;color:var(--muted);text-transform:uppercase;margin-bottom:14px;}
-.fgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:10px;align-items:end;}
-.fld{display:flex;flex-direction:column;gap:3px;}
-.fld label{font-size:10px;color:var(--muted);font-weight:500;}
-input,select{padding:8px 10px;border-radius:6px;border:1px solid var(--border);font-size:13px;font-family:inherit;background:var(--surface);color:#1a1a1a;width:100%;}
-input:focus,select:focus{outline:none;border-color:var(--green);}
-.btn{padding:7px 16px;border-radius:6px;border:none;font-weight:500;font-size:13px;cursor:pointer;font-family:inherit;white-space:nowrap;}
-.bg{background:var(--green);color:#fff;}
-.bb{background:var(--blue);color:#fff;}
-.br{background:var(--red);color:#fff;}
-.bgr{background:#ddd;color:#555;}
-.sm{padding:4px 10px;font-size:11px;}
-.tbar{padding:12px 16px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;border-bottom:1px solid var(--border);background:var(--surface2);}
-.flbl{font-size:12px;color:var(--muted);}
-.fsel{padding:6px 10px;border-radius:6px;border:1px solid var(--border);font-size:12px;font-family:inherit;background:var(--surface);}
-.tbl{width:100%;border-collapse:collapse;font-size:13px;}
-.tbl th{text-align:left;padding:9px 12px;border-bottom:2px solid var(--border);color:var(--muted);font-weight:500;font-size:11px;white-space:nowrap;background:var(--surface2);}
-.tbl td{padding:8px 12px;border-bottom:1px solid #f0f0ee;vertical-align:middle;}
-.tbl tr:last-child td{border-bottom:none;}
-.tbl tr:hover td{background:#fafaf8;}
-.tfoot td{background:var(--surface2);font-weight:500;}
+.ra{background:var(--pul);color:var(--pu);}.ru{background:var(--bl);color:#185FA5;}
+.nav{background:var(--sf);border-bottom:2px solid var(--br);padding:0 20px;display:flex;overflow-x:auto;}
+.nt{padding:11px 14px;border:none;border-bottom:3px solid transparent;background:transparent;cursor:pointer;font-size:13px;color:var(--mu);font-family:inherit;white-space:nowrap;margin-bottom:-2px;}
+.nt.on{color:var(--gd);border-bottom-color:var(--g);font-weight:500;}
+.sbar{background:var(--sf);border-bottom:1px solid var(--br);padding:10px 20px;display:flex;gap:20px;flex-wrap:wrap;}
+.sv{font-size:18px;font-weight:500;}.sl{font-size:11px;color:var(--mu);}
+.main{padding:16px 20px;}
+.fc{background:var(--sf);border:1px solid var(--br);border-radius:12px;padding:18px;margin-bottom:16px;}
+.ft{font-size:11px;font-weight:600;letter-spacing:.06em;color:var(--mu);text-transform:uppercase;margin-bottom:12px;}
+.fg{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;align-items:end;}
+.fl{display:flex;flex-direction:column;gap:3px;}
+.fl label{font-size:10px;color:var(--mu);font-weight:500;}
+input,select{padding:7px 10px;border-radius:6px;border:1px solid var(--br);font-size:13px;font-family:inherit;background:var(--sf);color:#1a1a1a;width:100%;}
+input:focus,select:focus{outline:none;border-color:var(--g);}
+.btn{padding:7px 14px;border-radius:6px;border:none;font-weight:500;font-size:13px;cursor:pointer;font-family:inherit;white-space:nowrap;}
+.bg{background:var(--g);color:#fff;}.bg:hover{background:var(--gd);}
+.bb{background:var(--b);color:#fff;}.br2{background:var(--r);color:#fff;}
+.bgr{background:#ddd;color:#555;}.sm{padding:4px 9px;font-size:11px;}
+.tc{background:var(--sf);border:1px solid var(--br);border-radius:12px;overflow:hidden;margin-bottom:16px;}
+.tbar{padding:10px 14px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;border-bottom:1px solid var(--br);background:var(--s2);}
+.flbl{font-size:12px;color:var(--mu);}
+.fsel{padding:5px 9px;border-radius:6px;border:1px solid var(--br);font-size:12px;font-family:inherit;background:var(--sf);}
 .ovx{overflow-x:auto;}
-.pill{display:inline-block;padding:2px 9px;border-radius:99px;font-size:11px;font-weight:500;}
-.pam{background:var(--blue-light);color:#185FA5;}
-.ppm{background:#EEEDFE;color:#3C3489;}
-.pgr{background:var(--green-light);color:var(--green-dark);}
-.sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;}
-.scard{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px;}
-.sc-t{font-size:14px;font-weight:500;margin-bottom:3px;}
-.sc-s{font-size:11px;color:var(--muted);margin-bottom:12px;}
-.sc-st{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;}
-.sc-sv{background:var(--surface2);border-radius:8px;padding:8px 12px;flex:1 1 80px;}
-.sv-v{font-size:15px;font-weight:500;}
-.sv-l{font-size:10px;color:var(--muted);}
-.mtag{display:inline-block;padding:2px 7px;border-radius:4px;background:var(--surface2);color:var(--muted);font-size:11px;margin:2px 2px 0 0;}
-.empty{text-align:center;color:#ccc;padding:32px;font-size:13px;}
-#toast{position:fixed;bottom:24px;right:24px;background:#1a1a1a;color:#fff;padding:12px 20px;border-radius:8px;font-size:13px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:999;}
+table{width:100%;border-collapse:collapse;font-size:13px;}
+th{text-align:left;padding:8px 12px;border-bottom:2px solid var(--br);color:var(--mu);font-weight:500;font-size:11px;white-space:nowrap;background:var(--s2);}
+td{padding:7px 12px;border-bottom:1px solid #f0f0ee;vertical-align:middle;}
+tr:last-child td{border-bottom:none;}tr:hover td{background:#fafaf8;}
+.tft td{background:var(--s2);font-weight:500;}
+.pill{display:inline-block;padding:2px 8px;border-radius:99px;font-size:11px;font-weight:500;}
+.pam{background:var(--bl);color:#185FA5;}.ppm{background:var(--pul);color:var(--pu);}
+.pgr{background:var(--gl);color:var(--gd);}.pok{background:var(--gl);color:var(--gd);}
+.pfail{background:var(--rl);color:var(--r);}.pwarn{background:var(--al);color:var(--a);}
+.knote{font-size:12px;color:var(--mu);margin-bottom:12px;padding:8px 12px;background:var(--s2);border-radius:6px;border-left:3px solid var(--g);}
+.khead{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;align-items:stretch;}
+.krate{border-radius:12px;padding:14px 20px;min-width:120px;text-align:center;}
+.krate-v{font-size:32px;font-weight:500;line-height:1;}
+.krate-l{font-size:11px;margin-top:3px;}
+.kstats{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+.ks{background:var(--s2);border-radius:8px;padding:8px 12px;min-width:80px;}
+.ks-v{font-size:13px;font-weight:500;}.ks-l{font-size:10px;color:var(--mu);}
+.sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-bottom:16px;}
+.sc{background:var(--sf);border:1px solid var(--br);border-radius:12px;padding:16px;}
+.sct{font-size:14px;font-weight:500;margin-bottom:2px;}
+.scs{font-size:11px;color:var(--mu);margin-bottom:10px;}
+.scst{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;}
+.scst-i{background:var(--s2);border-radius:8px;padding:8px 12px;flex:1 1 70px;}
+.scst-v{font-size:14px;font-weight:500;}.scst-l{font-size:10px;color:var(--mu);}
+.mtag{display:inline-block;padding:2px 6px;border-radius:4px;background:var(--s2);color:var(--mu);font-size:11px;margin:2px 2px 0 0;}
+.dg{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;margin-bottom:20px;}
+.dc{background:var(--sf);border:1px solid var(--br);border-radius:12px;padding:18px;}
+.dc-ico{font-size:18px;margin-bottom:6px;}
+.dc-lbl{font-size:12px;color:var(--mu);margin-bottom:3px;}
+.dc-rate{font-size:30px;font-weight:500;line-height:1;margin-bottom:3px;}
+.dc-note{font-size:11px;margin-bottom:8px;}
+.pb{background:var(--s2);border-radius:6px;height:7px;overflow:hidden;}
+.pbf{height:100%;transition:width .5s;}
+.dc-meta{display:flex;justify-content:space-between;font-size:11px;color:var(--mu);margin-top:4px;}
+/* On-site dynamic rows */
+.os-row{display:grid;grid-template-columns:1fr 1fr 1fr 1fr 32px;gap:6px;align-items:end;padding:8px 0;border-bottom:1px solid var(--br);}
+.os-row:last-child{border-bottom:none;}
+.empty{text-align:center;color:#ccc;padding:28px;font-size:13px;}
+#toast{position:fixed;bottom:20px;right:20px;background:#1a1a1a;color:#fff;padding:10px 18px;border-radius:8px;font-size:13px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:999;}
 #toast.on{opacity:1;}
 .mbg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:200;align-items:center;justify-content:center;}
 .mbg.open{display:flex;}
-.modal{background:var(--surface);border-radius:16px;padding:28px;width:100%;max-width:420px;margin:20px;}
+.modal{background:var(--sf);border-radius:16px;padding:24px;width:100%;max-width:400px;margin:16px;}
 </style>
 </head>
 <body>
-<div id="auth-screen">
-  <div class="auth-card">
-    <div class="auth-logo">Bigben Readymix · Asphalt Division</div>
-    <div class="auth-title">Daily Lay System</div>
-    <div class="auth-error" id="auth-err"></div>
-    <div style="display:flex;flex-direction:column;gap:12px;">
-      <div class="fld"><label>Email</label><input type="email" id="l-email" placeholder="your@email.com"/></div>
-      <div class="fld"><label>Password</label><input type="password" id="l-pass" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"/></div>
-      <button class="btn bg" onclick="doLogin()" style="margin-top:4px;">Sign in</button>
+
+<div id="auth">
+  <div class="acard">
+    <div class="aorg">Bigben Readymix · Asphalt Division</div>
+    <div class="atitle">Asphalt QC System</div>
+    <div class="aerr" id="aerr"></div>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div class="fl"><label>Email</label><input type="email" id="le" placeholder="your@email.com"/></div>
+      <div class="fl"><label>Password</label><input type="password" id="lp" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"/></div>
+      <button class="btn bg" onclick="doLogin()" style="margin-top:4px">Sign in</button>
     </div>
-    <p style="font-size:11px;color:var(--muted);margin-top:16px;text-align:center;">Contact your administrator to create an account.</p>
+    <p style="font-size:11px;color:var(--mu);margin-top:14px;text-align:center">Contact your administrator to create an account.</p>
   </div>
 </div>
 
-<div id="app-screen">
+<div id="app">
   <div class="topbar">
-    <div><div class="topbar-org">Bigben Readymix · Asphalt Division</div><div class="topbar-title">Daily Lay Master Data</div></div>
-    <div class="topbar-right">
-      <div style="text-align:right"><div class="user-email" id="uemail"></div><span class="rbadge" id="rbadge"></span></div>
+    <div class="tb-brand">
+      <div class="tb-org">Bigben Readymix · Asphalt Division</div>
+      <div class="tb-name">Asphalt QC System</div>
+    </div>
+    <div class="tb-right">
+      <div style="text-align:right"><div class="ue" id="uemail"></div><span class="rbadge" id="rbadge"></span></div>
       <button class="btn bgr sm" onclick="doLogout()">Sign out</button>
     </div>
   </div>
-  <div class="stats-bar">
-    <div><div class="sval" id="s-total">0</div><div class="slbl">Total deliveries</div></div>
-    <div><div class="sval" id="s-vol">0.00 T</div><div class="slbl">Total volume</div></div>
-    <div><div class="sval" id="s-proj">0</div><div class="slbl">Active projects</div></div>
-    <div><div class="sval" id="s-today">0</div><div class="slbl">Today's deliveries</div></div>
+
+  <div class="nav">
+    <button class="nt on"  onclick="goTab('dl',this)">🚛 Daily Lay</button>
+    <button class="nt" onclick="goTab('pt',this)">🏭 Plant Testing</button>
+    <button class="nt" onclick="goTab('os',this)">🚧 On-Site Testing</button>
+    <button class="nt" onclick="goTab('it',this)">📋 Internal Testing</button>
+    <button class="nt" onclick="goTab('dash',this)">📊 KPI Dashboard</button>
+    <button class="nt" id="admintab" style="display:none" onclick="goTab('adm',this)">⚙️ Admin</button>
   </div>
-  <div class="tabs">
-    <button class="tbtn on" onclick="switchTab('entries',this)">All Entries</button>
-    <button class="tbtn" onclick="switchTab('daily',this)">Daily Summary</button>
-    <button class="tbtn" onclick="switchTab('projects',this)">By Project</button>
-    <button class="tbtn" id="admin-tab" style="display:none" onclick="switchTab('admin',this)">⚙ Admin</button>
+
+  <div class="sbar">
+    <div><div class="sv" id="s-del">0</div><div class="sl">Total deliveries</div></div>
+    <div><div class="sv" id="s-vol">0.00 T</div><div class="sl">Total volume</div></div>
+    <div><div class="sv" id="s-proj">0</div><div class="sl">Active projects</div></div>
+    <div><div class="sv" id="s-today">0</div><div class="sl">Today's deliveries</div></div>
   </div>
+
   <div class="main">
 
-    <!-- FORM -->
-    <div class="card" id="form-card">
-      <div class="card-title">New delivery entry</div>
-      <div class="fgrid">
-        <div class="fld">
-          <label>Project *</label>
-          <div style="display:flex;gap:6px">
-            <select id="f-proj" style="flex:1"><option value="">— select —</option></select>
-            <button class="btn bb sm" onclick="showNP()" title="Add project">+</button>
-          </div>
-          <div id="np-row" style="display:none;margin-top:6px;display:none">
+    <!-- 1. DAILY LAY (MASTER) -->
+    <div id="tab-dl">
+      <div class="fc">
+        <div class="ft">New delivery entry</div>
+        <div class="fg">
+          <div class="fl"><label>Project *</label>
             <div style="display:flex;gap:5px">
-              <input id="np-inp" placeholder="New project name" style="flex:1"/>
-              <button class="btn bg sm" onclick="confirmNP()">✓</button>
-              <button class="btn bgr sm" onclick="cancelNP()">✕</button>
+              <select id="f-proj" style="flex:1"><option value="">— select —</option></select>
+              <button class="btn bb sm" onclick="showNP()" title="Add project">+</button>
+            </div>
+            <div id="np-row" style="display:none;margin-top:5px">
+              <div style="display:flex;gap:4px">
+                <input id="np-inp" placeholder="New project" style="flex:1"/>
+                <button class="btn bg sm" onclick="confirmNP()">✓</button>
+                <button class="btn bgr sm" onclick="cancelNP()">✕</button>
+              </div>
             </div>
           </div>
+          <div class="fl"><label>Client / Contractor</label><input id="f-client" placeholder="e.g. DPWH"/></div>
+          <div class="fl"><label>Location / Station</label><input id="f-loc" placeholder="Sta. 0+000"/></div>
+          <div class="fl"><label>Date *</label><input type="date" id="f-date"/></div>
+          <div class="fl"><label>Shift</label><select id="f-shift"><option>AM</option><option>PM</option></select></div>
+          <div class="fl"><label>DR No. *</label><input id="f-dr" placeholder="DR-00123"/></div>
+          <div class="fl"><label>Truck No. *</label><input id="f-truck" placeholder="BBM-001"/></div>
+          <div class="fl"><label>Mix Type</label>
+            <select id="f-mix"><option>Base Course</option><option>Binder Course (BC)</option><option>Wearing Course</option><option>OGFC</option><option>Others</option></select>
+          </div>
+          <div class="fl"><label>Volume (tons) *</label><input type="number" id="f-vol" min="0" step="0.01" placeholder="15.50"/></div>
+          <div class="fl" style="justify-content:flex-end"><button class="btn bg" onclick="addDelivery()">Add Entry</button></div>
         </div>
-        <div class="fld"><label>Client / Contractor</label><input id="f-client" placeholder="e.g. DPWH"/></div>
-        <div class="fld"><label>Location / Station</label><input id="f-loc" placeholder="e.g. Sta. 0+000"/></div>
-        <div class="fld"><label>Date *</label><input type="date" id="f-date"/></div>
-        <div class="fld"><label>Shift</label><select id="f-shift"><option>AM</option><option>PM</option></select></div>
-        <div class="fld"><label>DR No. *</label><input id="f-dr" placeholder="DR-00123"/></div>
-        <div class="fld"><label>Truck No. *</label><input id="f-truck" placeholder="BBM-001"/></div>
-        <div class="fld"><label>Mix Type</label>
-          <select id="f-mix">
-            <option>Base Course</option><option>Binder Course (BC)</option>
-            <option>Wearing Course</option><option>OGFC</option><option>Others</option>
-          </select>
-        </div>
-        <div class="fld"><label>Volume (tons) *</label><input type="number" id="f-vol" min="0" step="0.01" placeholder="15.50"/></div>
-        <div class="fld" style="justify-content:flex-end"><button class="btn bg" onclick="addEntry()">Add Entry</button></div>
       </div>
-    </div>
-
-    <!-- ENTRIES -->
-    <div id="tab-entries">
-      <div class="card" style="padding:0">
+      <div class="tc">
         <div class="tbar">
           <span class="flbl">Filter:</span>
-          <select class="fsel" id="fp-e" onchange="renderEntries()"><option value="">All projects</option></select>
-          <select class="fsel" id="fd-e" onchange="renderEntries()"><option value="">All dates</option></select>
-          <select class="fsel" id="fs-e" onchange="renderEntries()"><option value="">All shifts</option><option>AM</option><option>PM</option></select>
-          <button class="btn bgr sm" onclick="clearF()">Clear</button>
+          <select class="fsel" id="dl-fp" onchange="renderDL()"><option value="">All projects</option></select>
+          <select class="fsel" id="dl-fd" onchange="renderDL()"><option value="">All dates</option></select>
+          <select class="fsel" id="dl-fs" onchange="renderDL()"><option value="">All shifts</option><option>AM</option><option>PM</option></select>
+          <button class="btn bgr sm" onclick="clearDLF()">Clear</button>
         </div>
-        <div class="ovx">
-          <table class="tbl">
-            <thead><tr><th>Date</th><th>Shift</th><th>Project</th><th>Client</th><th>Location</th><th>DR No.</th><th>Truck No.</th><th>Mix Type</th><th style="text-align:right">Volume (T)</th><th>By</th><th></th></tr></thead>
-            <tbody id="etbody"></tbody>
-            <tfoot><tr class="tfoot"><td colspan="8" id="ecount" style="color:var(--muted);font-size:12px;padding:8px 12px"></td><td style="text-align:right;padding:8px 12px" id="etotal"></td><td colspan="2"></td></tr></tfoot>
-          </table>
-        </div>
+        <div class="ovx"><table>
+          <thead><tr><th>Date</th><th>Shift</th><th>Project</th><th>Client</th><th>Location</th><th>DR No.</th><th>Truck</th><th>Mix Type</th><th style="text-align:right">Vol (T)</th><th>By</th><th></th></tr></thead>
+          <tbody id="dl-tb"></tbody>
+          <tfoot><tr class="tft"><td colspan="8" id="dl-cnt" style="color:var(--mu);font-size:12px;padding:7px 12px"></td><td style="text-align:right;padding:7px 12px" id="dl-tot"></td><td colspan="2"></td></tr></tfoot>
+        </table></div>
       </div>
+      <div style="font-size:13px;font-weight:500;margin-bottom:10px;color:var(--mu)">By project</div>
+      <div class="sgrid" id="dl-pgrid"></div>
     </div>
 
-    <!-- DAILY -->
-    <div id="tab-daily" style="display:none">
-      <div class="card" style="padding:0">
+    <!-- 2. PLANT TESTING (per truck from Daily Lay) -->
+    <div id="tab-pt" style="display:none">
+      <div class="knote">Per truck field check — select from Daily Lay entries. Temperature (thermometer) &amp; Bleed test (paper).</div>
+      <div id="pt-kh"></div>
+      <div class="fc">
+        <div class="ft">New plant test entry</div>
+        <div class="fg">
+          <div class="fl"><label>Select delivery (DR No.) *</label>
+            <select id="pt-dr"><option value="">— select DR No. —</option></select>
+          </div>
+          <div class="fl"><label>Temp reading (°C)</label><input type="number" id="pt-tv" placeholder="155"/></div>
+          <div class="fl"><label>Temp spec (°C)</label><input id="pt-ts" placeholder="150-165"/></div>
+          <div class="fl"><label>Temp result</label><select id="pt-tr"><option>Pass</option><option>Fail</option></select></div>
+          <div class="fl"><label>Bleed (paper)</label><select id="pt-br"><option>Pass</option><option>Fail</option></select></div>
+          <div class="fl" style="justify-content:flex-end"><button class="btn bg" onclick="addPlant()">Add</button></div>
+        </div>
+      </div>
+      <div class="tc">
         <div class="tbar">
-          <span class="flbl">Project:</span>
-          <select class="fsel" id="fp-d" onchange="renderDaily()"><option value="">All projects</option></select>
+          <span class="flbl">Filter:</span>
+          <select class="fsel" id="pt-fp" onchange="renderPlant()"><option value="">All projects</option></select>
+          <select class="fsel" id="pt-fd" onchange="renderPlant()"><option value="">All dates</option></select>
         </div>
-        <div class="ovx">
-          <table class="tbl">
-            <thead><tr><th>Date</th><th>Project(s)</th><th>AM Trucks</th><th>PM Trucks</th><th>Total Trucks</th><th style="text-align:right">Total Volume (T)</th><th>Mix Types</th></tr></thead>
-            <tbody id="dtbody"></tbody>
-          </table>
+        <div class="ovx"><table>
+          <thead><tr><th>Date</th><th>Project</th><th>DR No.</th><th>Truck</th><th>Temp (°C)</th><th>Spec</th><th>Temp</th><th>Bleed</th><th>Overall</th><th></th></tr></thead>
+          <tbody id="pt-tb"></tbody>
+        </table></div>
+      </div>
+    </div>
+
+    <!-- 3. ON-SITE TESTING (linked to Daily Lay, multiple params per batch) -->
+    <div id="tab-os" style="display:none">
+      <div class="knote">Samples gathered &amp; witnessed by client. Sample date = laying date. Multiple parameters per batch — add or remove as needed.</div>
+      <div id="os-kh"></div>
+      <div class="fc">
+        <div class="ft">New on-site sample entry</div>
+        <div class="fg" style="margin-bottom:12px">
+          <div class="fl"><label>Select laying date / batch *</label>
+            <select id="os-dl"><option value="">— select laying entry —</option></select>
+          </div>
+          <div class="fl"><label>Client witness</label><input id="os-wit" placeholder="Name"/></div>
+        </div>
+        <!-- Dynamic parameter rows -->
+        <div style="margin-bottom:8px">
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr 32px;gap:6px;margin-bottom:6px">
+            <span style="font-size:10px;color:var(--mu);font-weight:500">Parameter</span>
+            <span style="font-size:10px;color:var(--mu);font-weight:500">Result</span>
+            <span style="font-size:10px;color:var(--mu);font-weight:500">Test date</span>
+            <span style="font-size:10px;color:var(--mu);font-weight:500">Released date</span>
+            <span></span>
+          </div>
+          <div id="os-params"></div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center">
+          <button class="btn bb sm" onclick="addOsParam()">+ Add parameter</button>
+          <button class="btn bg" onclick="addOnsite()">Save sample</button>
+        </div>
+      </div>
+      <div class="tc">
+        <div class="tbar">
+          <span class="flbl">Filter:</span>
+          <select class="fsel" id="os-fp" onchange="renderOnsite()"><option value="">All projects</option></select>
+          <select class="fsel" id="os-fd" onchange="renderOnsite()"><option value="">All dates</option></select>
+        </div>
+        <div class="ovx"><table>
+          <thead><tr><th>Date</th><th>Project</th><th>DR / Batch</th><th>Witness</th><th>Parameter</th><th>Result</th><th>Test Date</th><th>Released</th><th>Days</th><th>On-Time</th><th></th></tr></thead>
+          <tbody id="os-tb"></tbody>
+        </table></div>
+      </div>
+    </div>
+
+    <!-- 4. INTERNAL TESTING (linked to Daily Lay batches) -->
+    <div id="tab-it" style="display:none">
+      <div class="knote">Self-initiated per batch — hindi required ng client. Select batch from Daily Lay.</div>
+      <div id="it-kh"></div>
+      <div class="fc">
+        <div class="ft">New internal test entry</div>
+        <div class="fg">
+          <div class="fl"><label>Select laying date / batch *</label>
+            <select id="it-dl"><option value="">— select laying entry —</option></select>
+          </div>
+          <div class="fl"><label>Internal sample?</label><select id="it-has"><option>Yes</option><option>No</option></select></div>
+          <div class="fl"><label>Extraction</label><select id="it-ex"><option>Pass</option><option>Fail</option></select></div>
+          <div class="fl"><label>Gradation</label><select id="it-gr"><option>Pass</option><option>Fail</option></select></div>
+          <div class="fl"><label>GMM</label><select id="it-gm"><option>Pass</option><option>Fail</option></select></div>
+          <div class="fl"><label>Stability</label><select id="it-st"><option>Pass</option><option>Fail</option></select></div>
+          <div class="fl"><label>Flow</label><select id="it-fl"><option>Pass</option><option>Fail</option></select></div>
+          <div class="fl"><label>Remarks</label><input id="it-rem" placeholder="Optional"/></div>
+          <div class="fl" style="justify-content:flex-end"><button class="btn bg" onclick="addInternal()">Add</button></div>
+        </div>
+      </div>
+      <div class="tc">
+        <div class="tbar">
+          <span class="flbl">Filter:</span>
+          <select class="fsel" id="it-fp" onchange="renderInternal()"><option value="">All projects</option></select>
+          <select class="fsel" id="it-fd" onchange="renderInternal()"><option value="">All dates</option></select>
+        </div>
+        <div class="ovx"><table>
+          <thead><tr><th>Date</th><th>Project</th><th>DR No.</th><th>Sample</th><th>Ext</th><th>Grad</th><th>GMM</th><th>Stab</th><th>Flow</th><th>Remarks</th><th></th></tr></thead>
+          <tbody id="it-tb"></tbody>
+        </table></div>
+      </div>
+    </div>
+
+    <!-- 5. KPI DASHBOARD -->
+    <div id="tab-dash" style="display:none">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px">
+        <div style="font-size:12px;color:var(--mu)" id="dash-lbl"></div>
+        <select class="fsel" id="dash-mo" onchange="renderDash()"></select>
+      </div>
+      <div class="dg" id="dash-kpis"></div>
+
+      <!-- On-Time detail table -->
+      <div class="fc" style="margin-bottom:16px">
+        <div class="ft">On-Time Testing — released date tracking</div>
+        <div class="knote" style="margin-bottom:12px">Base sa On-Site Testing entries. I-enter ang released date para ma-compute ang on-time status.</div>
+        <div class="ovx"><table>
+          <thead><tr><th>Date</th><th>Project</th><th>DR No.</th><th>Parameter</th><th>Test Date</th><th>Released Date</th><th>Days</th><th>Status</th></tr></thead>
+          <tbody id="dash-ot"></tbody>
+        </table></div>
+      </div>
+
+      <!-- Bottom 2-col -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div class="tc">
+          <div class="tbar"><span style="font-size:12px;font-weight:500">Today's deliveries</span></div>
+          <div class="ovx"><table>
+            <thead><tr><th>Project</th><th>DR No.</th><th>Truck</th><th>Shift</th><th style="text-align:right">Vol (T)</th></tr></thead>
+            <tbody id="dash-today"></tbody>
+          </table></div>
+        </div>
+        <div class="tc">
+          <div class="tbar"><span style="font-size:12px;font-weight:500">On-Site samples this month</span></div>
+          <div class="ovx"><table>
+            <thead><tr><th>Project</th><th>DR No.</th><th>Parameter</th><th>Result</th></tr></thead>
+            <tbody id="dash-os"></tbody>
+          </table></div>
         </div>
       </div>
     </div>
 
-    <!-- PROJECTS -->
-    <div id="tab-projects" style="display:none">
-      <div class="sgrid" id="pgrid"></div>
-    </div>
-
-    <!-- ADMIN -->
-    <div id="tab-admin" style="display:none">
-      <div class="card">
-        <div class="card-title">Create new user</div>
-        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end">
-          <div class="fld" style="flex:1 1 170px"><label>Email</label><input type="email" id="nu-email" placeholder="user@bigben.com"/></div>
-          <div class="fld" style="flex:1 1 140px"><label>Password</label><input type="password" id="nu-pass" placeholder="min. 6 chars"/></div>
-          <div class="fld" style="flex:1 1 130px"><label>Name</label><input id="nu-name" placeholder="Full name"/></div>
-          <div class="fld" style="flex:0 0 auto"><label>Role</label><select id="nu-role"><option value="user">Regular user</option><option value="admin">Admin</option></select></div>
+    <!-- 6. ADMIN -->
+    <div id="tab-adm" style="display:none">
+      <div class="fc">
+        <div class="ft">Create new user</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end">
+          <div class="fl" style="flex:1 1 160px"><label>Email</label><input type="email" id="nu-e" placeholder="user@bigben.com"/></div>
+          <div class="fl" style="flex:1 1 130px"><label>Password</label><input type="password" id="nu-p" placeholder="min. 6 chars"/></div>
+          <div class="fl" style="flex:1 1 120px"><label>Name</label><input id="nu-n" placeholder="Full name"/></div>
+          <div class="fl" style="flex:0 0 auto"><label>Role</label><select id="nu-r"><option value="user">Regular user</option><option value="admin">Admin</option></select></div>
           <button class="btn bg" onclick="createUser()">Create user</button>
         </div>
-        <div id="cu-msg" style="font-size:12px;margin-top:10px"></div>
+        <div id="cu-msg" style="font-size:12px;margin-top:8px"></div>
       </div>
-      <div class="card">
-        <div class="card-title">User management</div>
-        <div class="ovx">
-          <table class="tbl">
-            <thead><tr><th>Email</th><th>Name</th><th>Role</th><th>Action</th></tr></thead>
-            <tbody id="utbody"></tbody>
-          </table>
-        </div>
+      <div class="fc">
+        <div class="ft">User management</div>
+        <div class="ovx"><table>
+          <thead><tr><th>Email</th><th>Name</th><th>Role</th><th>Action</th></tr></thead>
+          <tbody id="u-tb"></tbody>
+        </table></div>
       </div>
     </div>
 
   </div>
 </div>
 
-<!-- DELETE MODAL -->
 <div class="mbg" id="del-modal">
   <div class="modal">
-    <div style="font-size:16px;font-weight:500;margin-bottom:10px">Delete this entry?</div>
-    <p style="font-size:13px;color:var(--muted);margin-bottom:20px">This action cannot be undone.</p>
+    <div style="font-size:15px;font-weight:500;margin-bottom:8px">Delete this entry?</div>
+    <p style="font-size:13px;color:var(--mu);margin-bottom:18px">This cannot be undone.</p>
     <div style="display:flex;gap:8px;justify-content:flex-end">
       <button class="btn bgr" onclick="closeDel()">Cancel</button>
-      <button class="btn br" onclick="confirmDel()">Delete</button>
+      <button class="btn br2" onclick="confirmDel()">Delete</button>
     </div>
   </div>
 </div>
@@ -233,7 +369,7 @@ import { getAuth, signInWithEmailAndPassword, signOut, createUserWithEmailAndPas
 import { getDatabase, ref, push, set, remove, onValue, get }
   from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
-const app = initializeApp({
+const app=initializeApp({
   apiKey:"AIzaSyAuiACQrF_nwYfEC1iq4NIAm1Ty6dP_0Kg",
   authDomain:"bigben-asphalt-qc-a067e.firebaseapp.com",
   databaseURL:"https://bigben-asphalt-qc-a067e-default-rtdb.asia-southeast1.firebasedatabase.app",
@@ -242,53 +378,125 @@ const app = initializeApp({
   messagingSenderId:"540924342668",
   appId:"1:540924342668:web:c3e6d0f61c208f32cfa6a9"
 });
-const auth=getAuth(app), db=getDatabase(app);
+const auth=getAuth(app),db=getDatabase(app);
 
-let CU=null, ROLE="user", entries=[], users={}, delKey=null;
+const MO=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+const CUR_MO=new Date().getMonth(),YR=new Date().getFullYear();
 const TODAY=new Date().toISOString().split("T")[0];
 const fmt=n=>Number(n||0).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
-const toast=msg=>{const t=document.getElementById("toast");t.textContent=msg;t.classList.add("on");setTimeout(()=>t.classList.remove("on"),2500);};
+const pct=(a,b)=>b===0?0:Math.round(a/b*100);
+const toast=m=>{const t=document.getElementById("toast");t.textContent=m;t.classList.add("on");setTimeout(()=>t.classList.remove("on"),2500);};
+const sc=(r,tg)=>r>=tg?"#0F6E56":r>=tg-5?"#BA7517":"#A32D2D";
+const sb=(r,tg)=>r>=tg?"#E1F5EE":r>=tg-5?"#FAEEDA":"#FCEBEB";
+const P=(ok,y,n)=>`<span class="pill ${ok?"pok":"pfail"}">${ok?y:n}</span>`;
+const PARAMS=["Extraction","Gradation","GMM","Stability","Flow"];
+
+let CU=null,ROLE="user",deliveries=[],plant=[],onsite=[],internal=[],users={},delInfo=null;
 
 // AUTH
 window.doLogin=async()=>{
-  const e=document.getElementById("l-email").value.trim(), p=document.getElementById("l-pass").value;
+  const e=document.getElementById("le").value.trim(),p=document.getElementById("lp").value;
   try{await signInWithEmailAndPassword(auth,e,p);}
-  catch{const er=document.getElementById("auth-err");er.textContent="Invalid email or password.";er.style.display="block";}
+  catch{const er=document.getElementById("aerr");er.textContent="Invalid email or password.";er.style.display="block";}
 };
-window.doLogout=async()=>{await signOut(auth);};
+window.doLogout=async()=>await signOut(auth);
 
 onAuthStateChanged(auth,async user=>{
   if(user){
     CU=user;
-    const snap=await get(ref(db,`users/${user.uid}/role`));
-    ROLE=snap.exists()?snap.val():"user";
-    document.getElementById("auth-screen").style.display="none";
-    document.getElementById("app-screen").style.display="block";
+    const s=await get(ref(db,`users/${user.uid}/role`));
+    ROLE=s.exists()?s.val():"user";
+    document.getElementById("auth").style.display="none";
+    document.getElementById("app").style.display="block";
     document.getElementById("uemail").textContent=user.email;
     const rb=document.getElementById("rbadge");
     rb.textContent=ROLE==="admin"?"Admin":"User";
-    rb.className="rbadge "+(ROLE==="admin"?"radmin":"ruser");
-    document.getElementById("admin-tab").style.display=ROLE==="admin"?"":"none";
+    rb.className="rbadge "+(ROLE==="admin"?"ra":"ru");
+    document.getElementById("admintab").style.display=ROLE==="admin"?"":"none";
     document.getElementById("f-date").value=TODAY;
+    initDashMo();
+    initOsParams();
     startListeners();
-  } else {
-    document.getElementById("auth-screen").style.display="flex";
-    document.getElementById("app-screen").style.display="none";
+  }else{
+    document.getElementById("auth").style.display="flex";
+    document.getElementById("app").style.display="none";
   }
 });
 
+function initDashMo(){
+  const s=document.getElementById("dash-mo");
+  s.innerHTML=MO.map((m,i)=>`<option value="${i}"${i===CUR_MO?" selected":""}>${m} ${YR}</option>`).join("");
+}
+
+// ON-SITE DYNAMIC PARAMS
+let osParamRows=[];
+function initOsParams(){
+  osParamRows=[{param:"Extraction",result:"Pass",testDate:TODAY,relDate:""}];
+  renderOsParamRows();
+}
+function renderOsParamRows(){
+  const c=document.getElementById("os-params");
+  c.innerHTML=osParamRows.map((r,i)=>`
+    <div class="os-row">
+      <div class="fl">
+        <select onchange="osParamRows[${i}].param=this.value" style="font-size:12px">
+          ${PARAMS.map(p=>`<option${r.param===p?" selected":""}>${p}</option>`).join("")}
+        </select>
+      </div>
+      <div class="fl">
+        <select onchange="osParamRows[${i}].result=this.value" style="font-size:12px">
+          <option${r.result==="Pass"?" selected":""}>Pass</option>
+          <option${r.result==="Fail"?" selected":""}>Fail</option>
+        </select>
+      </div>
+      <div class="fl">
+        <input type="date" value="${r.testDate}" onchange="osParamRows[${i}].testDate=this.value" style="font-size:12px"/>
+      </div>
+      <div class="fl">
+        <input type="date" value="${r.relDate}" onchange="osParamRows[${i}].relDate=this.value" style="font-size:12px"/>
+      </div>
+      <button class="btn br2 sm" onclick="removeOsParam(${i})" style="padding:4px 7px">✕</button>
+    </div>
+  `).join("");
+}
+window.addOsParam=()=>{
+  osParamRows.push({param:PARAMS[osParamRows.length%PARAMS.length],result:"Pass",testDate:TODAY,relDate:""});
+  renderOsParamRows();
+};
+window.removeOsParam=(i)=>{
+  if(osParamRows.length<=1){toast("At least one parameter required.");return;}
+  osParamRows.splice(i,1);
+  renderOsParamRows();
+};
+
 function startListeners(){
-  onValue(ref(db,"entries"),snap=>{
-    entries=[];
-    if(snap.exists()) snap.forEach(c=>entries.push({key:c.key,...c.val()}));
-    entries.sort((a,b)=>b.date.localeCompare(a.date)||b.timestamp-a.timestamp);
-    updateStats(); updateFilters(); renderEntries(); renderDaily(); renderProjects();
+  onValue(ref(db,"deliveries"),snap=>{
+    deliveries=[];
+    if(snap.exists()) snap.forEach(c=>deliveries.push({key:c.key,...c.val()}));
+    deliveries.sort((a,b)=>b.date.localeCompare(a.date)||b.ts-a.ts);
+    updateStats(); updateDeliverySelects(); renderDL(); renderDLProj();
   });
   onValue(ref(db,"projects"),snap=>{
-    const sel=document.getElementById("f-proj"), cur=sel.value;
+    const sel=document.getElementById("f-proj"),cur=sel.value;
     sel.innerHTML='<option value="">— select —</option>';
     if(snap.exists()) snap.forEach(c=>{const o=document.createElement("option");o.value=c.val();o.textContent=c.val();sel.appendChild(o);});
     if(cur) sel.value=cur;
+  });
+  onValue(ref(db,"plant"),snap=>{
+    plant=[];
+    if(snap.exists()) snap.forEach(c=>plant.push({key:c.key,...c.val()}));
+    renderPlant();
+  });
+  onValue(ref(db,"onsite"),snap=>{
+    onsite=[];
+    if(snap.exists()) snap.forEach(c=>onsite.push({key:c.key,...c.val()}));
+    renderOnsite();
+    if(document.getElementById("tab-dash").style.display!=="none") renderDash();
+  });
+  onValue(ref(db,"internal"),snap=>{
+    internal=[];
+    if(snap.exists()) snap.forEach(c=>internal.push({key:c.key,...c.val()}));
+    renderInternal();
   });
   if(ROLE==="admin"){
     onValue(ref(db,"users"),snap=>{
@@ -299,179 +507,348 @@ function startListeners(){
   }
 }
 
-// PROJECT
-window.showNP=()=>{document.getElementById("np-row").style.display="block";document.getElementById("np-inp").focus();};
-window.cancelNP=()=>{document.getElementById("np-row").style.display="none";document.getElementById("np-inp").value="";};
-window.confirmNP=async()=>{
-  const n=document.getElementById("np-inp").value.trim();
-  if(!n) return;
-  await push(ref(db,"projects"),n);
-  cancelNP(); toast("Project added!");
-};
-
-// ADD ENTRY
-window.addEntry=async()=>{
-  const proj=document.getElementById("f-proj").value, dr=document.getElementById("f-dr").value.trim(),
-    truck=document.getElementById("f-truck").value.trim(), vol=document.getElementById("f-vol").value,
-    date=document.getElementById("f-date").value;
-  if(!proj||!dr||!truck||!vol||!date){toast("Fill in all required fields (*)");return;}
-  await push(ref(db,"entries"),{
-    project:proj,date,shift:document.getElementById("f-shift").value,
-    client:document.getElementById("f-client").value.trim(),
-    location:document.getElementById("f-loc").value.trim(),
-    drNo:dr,truckNo:truck,mixType:document.getElementById("f-mix").value,
-    volume:Number(vol),addedBy:CU.email,timestamp:Date.now()
-  });
-  document.getElementById("f-dr").value="";
-  document.getElementById("f-truck").value="";
-  document.getElementById("f-vol").value="";
-  toast("Entry added!");
-};
-
-// STATS
 function updateStats(){
-  document.getElementById("s-total").textContent=entries.length;
-  document.getElementById("s-vol").textContent=fmt(entries.reduce((s,e)=>s+e.volume,0))+" T";
-  document.getElementById("s-proj").textContent=[...new Set(entries.map(e=>e.project))].length;
-  document.getElementById("s-today").textContent=entries.filter(e=>e.date===TODAY).length;
+  document.getElementById("s-del").textContent=deliveries.length;
+  document.getElementById("s-vol").textContent=fmt(deliveries.reduce((s,e)=>s+e.volume,0))+" T";
+  document.getElementById("s-proj").textContent=[...new Set(deliveries.map(e=>e.project))].length;
+  document.getElementById("s-today").textContent=deliveries.filter(e=>e.date===TODAY).length;
 }
 
-// FILTERS
-function updateFilters(){
-  const projs=[...new Set(entries.map(e=>e.project))].sort();
-  const dates=[...new Set(entries.map(e=>e.date))].sort().reverse();
-  ["fp-e","fp-d"].forEach(id=>{
+function updateDeliverySelects(){
+  // DR selects for Plant and Internal
+  const ptSel=document.getElementById("pt-dr");
+  const itSel=document.getElementById("it-dl");
+  const osSel=document.getElementById("os-dl");
+
+  // Get already-tested DR nos for plant
+  const testedDRs=new Set(plant.map(p=>p.deliveryKey));
+
+  [ptSel,itSel,osSel].forEach(sel=>{
+    const cur=sel.value;
+    sel.innerHTML='<option value="">— select —</option>';
+    deliveries.forEach(d=>{
+      const o=document.createElement("option");
+      o.value=d.key;
+      o.textContent=`${d.date} | ${d.project} | DR: ${d.drNo} | Truck: ${d.truckNo}`;
+      sel.appendChild(o);
+    });
+    if(cur) sel.value=cur;
+  });
+
+  // Update filter selects
+  const projs=[...new Set(deliveries.map(e=>e.project))].sort();
+  const dates=[...new Set(deliveries.map(e=>e.date))].sort().reverse();
+  ["pt-fp","os-fp","it-fp"].forEach(id=>{
     const s=document.getElementById(id),c=s.value;
     s.innerHTML='<option value="">All projects</option>';
     projs.forEach(p=>{const o=document.createElement("option");o.value=p;o.textContent=p;s.appendChild(o);});
     if(c) s.value=c;
   });
-  const fd=document.getElementById("fd-e"),c=fd.value;
-  fd.innerHTML='<option value="">All dates</option>';
-  dates.forEach(d=>{const o=document.createElement("option");o.value=d;o.textContent=d;fd.appendChild(o);});
-  if(c) fd.value=c;
+  ["pt-fd","os-fd","it-fd","dl-fp"].forEach(id=>{
+    const s=document.getElementById(id);
+    const isDLP=id==="dl-fp";
+    const c=s.value;
+    s.innerHTML=isDLP?'<option value="">All projects</option>':'<option value="">All dates</option>';
+    if(isDLP){projs.forEach(p=>{const o=document.createElement("option");o.value=p;o.textContent=p;s.appendChild(o);});}
+    else{dates.forEach(d=>{const o=document.createElement("option");o.value=d;o.textContent=d;s.appendChild(o);});}
+    if(c) s.value=c;
+  });
+  const dlfd=document.getElementById("dl-fd"),cdd=dlfd.value;
+  dlfd.innerHTML='<option value="">All dates</option>';
+  dates.forEach(d=>{const o=document.createElement("option");o.value=d;o.textContent=d;dlfd.appendChild(o);});
+  if(cdd) dlfd.value=cdd;
 }
 
-window.clearF=()=>{
-  ["fp-e","fd-e","fs-e"].forEach(id=>document.getElementById(id).value="");
-  renderEntries();
-};
+// PROJECT
+window.showNP=()=>{document.getElementById("np-row").style.display="block";document.getElementById("np-inp").focus();};
+window.cancelNP=()=>{document.getElementById("np-row").style.display="none";document.getElementById("np-inp").value="";};
+window.confirmNP=async()=>{const n=document.getElementById("np-inp").value.trim();if(!n)return;await push(ref(db,"projects"),n);cancelNP();toast("Project added!");};
 
-window.renderEntries=()=>{
-  const fp=document.getElementById("fp-e").value, fd=document.getElementById("fd-e").value, fs=document.getElementById("fs-e").value;
-  const f=entries.filter(e=>(!fp||e.project===fp)&&(!fd||e.date===fd)&&(!fs||e.shift===fs));
-  const tb=document.getElementById("etbody");
-  if(!f.length){tb.innerHTML=`<tr><td colspan="11" class="empty">No entries match the filter.</td></tr>`;return;}
+// 1. DAILY LAY
+window.addDelivery=async()=>{
+  const proj=document.getElementById("f-proj").value,dr=document.getElementById("f-dr").value.trim(),
+    truck=document.getElementById("f-truck").value.trim(),vol=document.getElementById("f-vol").value,
+    date=document.getElementById("f-date").value;
+  if(!proj||!dr||!truck||!vol||!date){toast("Fill required fields (*)");return;}
+  await push(ref(db,"deliveries"),{project:proj,date,shift:document.getElementById("f-shift").value,
+    client:document.getElementById("f-client").value.trim(),location:document.getElementById("f-loc").value.trim(),
+    drNo:dr,truckNo:truck,mixType:document.getElementById("f-mix").value,volume:Number(vol),
+    addedBy:CU.email,ts:Date.now()});
+  ["f-dr","f-truck","f-vol"].forEach(id=>document.getElementById(id).value="");
+  toast("Delivery added!");
+};
+window.renderDL=()=>{
+  const fp=document.getElementById("dl-fp").value,fd=document.getElementById("dl-fd").value,fs=document.getElementById("dl-fs").value;
+  const f=deliveries.filter(e=>(!fp||e.project===fp)&&(!fd||e.date===fd)&&(!fs||e.shift===fs));
+  const tb=document.getElementById("dl-tb");
+  if(!f.length){tb.innerHTML=`<tr><td colspan="11" class="empty">No entries.</td></tr>`;return;}
   tb.innerHTML=f.map(e=>`<tr>
-    <td>${e.date}</td>
-    <td><span class="pill p${e.shift.toLowerCase()}">${e.shift}</span></td>
+    <td>${e.date}</td><td><span class="pill p${e.shift.toLowerCase()}">${e.shift}</span></td>
     <td>${e.project}</td><td>${e.client||"—"}</td><td>${e.location||"—"}</td>
     <td>${e.drNo}</td><td>${e.truckNo}</td><td>${e.mixType}</td>
     <td style="text-align:right">${fmt(e.volume)}</td>
-    <td style="font-size:11px;color:var(--muted)">${e.addedBy||""}</td>
-    <td>${ROLE==="admin"?`<button class="btn br sm" onclick="openDel('${e.key}')">Del</button>`:""}</td>
+    <td style="font-size:10px;color:var(--mu)">${e.addedBy||""}</td>
+    <td>${ROLE==="admin"?`<button class="btn br2 sm" onclick="openDel('deliveries','${e.key}')">Del</button>`:""}</td>
   </tr>`).join("");
   const tot=f.reduce((s,e)=>s+e.volume,0);
-  document.getElementById("ecount").textContent=`${f.length} truck${f.length!==1?"s":""}`;
-  document.getElementById("etotal").innerHTML=`<strong>${fmt(tot)} T</strong>`;
+  document.getElementById("dl-cnt").textContent=`${f.length} truck${f.length!==1?"s":""}`;
+  document.getElementById("dl-tot").innerHTML=`<strong>${fmt(tot)} T</strong>`;
+};
+window.clearDLF=()=>{["dl-fp","dl-fd","dl-fs"].forEach(id=>document.getElementById(id).value="");renderDL();};
+function renderDLProj(){
+  const byP={};deliveries.forEach(e=>(byP[e.project]=byP[e.project]||[]).push(e));
+  const g=document.getElementById("dl-pgrid"),projs=Object.keys(byP).sort();
+  if(!projs.length){g.innerHTML=`<div class="empty">No data yet.</div>`;return;}
+  g.innerHTML=projs.map(p=>{
+    const r=byP[p],tot=r.reduce((s,x)=>s+x.volume,0),days=[...new Set(r.map(x=>x.date))].length;
+    const cl=[...new Set(r.map(x=>x.client).filter(Boolean))].join(", ")||"—";
+    const mx=[...new Set(r.map(x=>x.mixType))];
+    return `<div class="sc"><div class="sct">${p}</div><div class="scs">${cl}</div>
+      <div class="scst">
+        <div class="scst-i"><div class="scst-v">${fmt(tot)} T</div><div class="scst-l">Total volume</div></div>
+        <div class="scst-i"><div class="scst-v">${r.length}</div><div class="scst-l">Trucks</div></div>
+        <div class="scst-i"><div class="scst-v">${days}</div><div class="scst-l">Days</div></div>
+      </div><div>${mx.map(m=>`<span class="mtag">${m}</span>`).join("")}</div></div>`;
+  }).join("");
+}
+
+// KPI HEADER helper
+function kh(id,rate,tg,tgLbl,total,passed,uLbl){
+  const col=sc(rate,tg),bg=sb(rate,tg),has=total>0;
+  document.getElementById(id).innerHTML=`<div class="khead">
+    <div class="krate" style="background:${bg}">
+      <div class="krate-v" style="color:${col}">${has?rate+"%":"—"}</div>
+      <div class="krate-l" style="color:${col}">target ${tg}%</div>
+    </div>
+    <div class="kstats">
+      <div class="ks"><div class="ks-v">${total}</div><div class="ks-l">Total</div></div>
+      <div class="ks"><div class="ks-v">${passed}</div><div class="ks-l">${uLbl}</div></div>
+      <div class="ks"><div class="ks-v">${tgLbl}</div><div class="ks-l">Target</div></div>
+      ${has?`<div class="ks"><div class="ks-v" style="color:${col}">${rate>=tg?"✓ On target":rate>=tg-5?"⚠ Near miss":"✗ Below"}</div><div class="ks-l">Status</div></div>`:""}
+    </div>
+  </div>`;
+}
+
+// 2. PLANT TESTING
+window.addPlant=async()=>{
+  const dk=document.getElementById("pt-dr").value;
+  if(!dk){toast("Select a delivery first");return;}
+  const d=deliveries.find(x=>x.key===dk);
+  if(!d)return;
+  await push(ref(db,"plant"),{deliveryKey:dk,project:d.project,date:d.date,drNo:d.drNo,truckNo:d.truckNo,
+    tempReading:document.getElementById("pt-tv").value,tempSpec:document.getElementById("pt-ts").value,
+    tempOk:document.getElementById("pt-tr").value,bleedOk:document.getElementById("pt-br").value,
+    addedBy:CU.email,ts:Date.now()});
+  ["pt-tv","pt-ts"].forEach(id=>document.getElementById(id).value="");
+  document.getElementById("pt-dr").value="";
+  toast("Plant test added!");
+};
+window.renderPlant=()=>{
+  const fp=document.getElementById("pt-fp").value,fd=document.getElementById("pt-fd").value;
+  const f=plant.filter(e=>(!fp||e.project===fp)&&(!fd||e.date===fd));
+  const passed=f.filter(e=>e.tempOk==="Pass"&&e.bleedOk==="Pass").length;
+  kh("pt-kh",pct(passed,f.length),99,"99% pass rate",f.length,passed,"passed");
+  const tb=document.getElementById("pt-tb");
+  if(!f.length){tb.innerHTML=`<tr><td colspan="10" class="empty">No entries.</td></tr>`;return;}
+  tb.innerHTML=f.map(e=>{const ok=e.tempOk==="Pass"&&e.bleedOk==="Pass";return `<tr>
+    <td>${e.date}</td><td>${e.project}</td><td>${e.drNo}</td><td>${e.truckNo}</td>
+    <td>${e.tempReading?e.tempReading+"°C":"—"}</td><td>${e.tempSpec||"—"}</td>
+    <td>${P(e.tempOk==="Pass","Pass","Fail")}</td><td>${P(e.bleedOk==="Pass","Pass","Fail")}</td>
+    <td>${P(ok,"✓ Pass","✗ Fail")}</td>
+    <td>${ROLE==="admin"?`<button class="btn br2 sm" onclick="openDel('plant','${e.key}')">Del</button>`:""}</td>
+  </tr>`;}).join("");
 };
 
-window.renderDaily=()=>{
-  const fp=document.getElementById("fp-d").value;
-  const f=entries.filter(e=>!fp||e.project===fp);
-  const byD={};
-  f.forEach(e=>(byD[e.date]=byD[e.date]||[]).push(e));
-  const dates=Object.keys(byD).sort().reverse();
-  const tb=document.getElementById("dtbody");
-  if(!dates.length){tb.innerHTML=`<tr><td colspan="7" class="empty">No data yet.</td></tr>`;return;}
-  tb.innerHTML=dates.map(d=>{
-    const r=byD[d],am=r.filter(x=>x.shift==="AM").length,pm=r.filter(x=>x.shift==="PM").length;
-    const tot=r.reduce((s,x)=>s+x.volume,0);
+// 3. ON-SITE TESTING (multiple params per sample)
+window.addOnsite=async()=>{
+  const dk=document.getElementById("os-dl").value,wit=document.getElementById("os-wit").value.trim();
+  if(!dk){toast("Select a laying entry");return;}
+  const d=deliveries.find(x=>x.key===dk);
+  if(!d)return;
+  // Save each param row as separate entry linked to same deliveryKey
+  for(const r of osParamRows){
+    await push(ref(db,"onsite"),{deliveryKey:dk,project:d.project,date:d.date,drNo:d.drNo,
+      witness:wit,parameter:r.param,result:r.result,testDate:r.testDate,releasedDate:r.relDate||"",
+      addedBy:CU.email,ts:Date.now()});
+  }
+  document.getElementById("os-dl").value="";
+  document.getElementById("os-wit").value="";
+  initOsParams();
+  toast("On-site sample saved!");
+};
+window.renderOnsite=()=>{
+  const fp=document.getElementById("os-fp").value,fd=document.getElementById("os-fd").value;
+  const f=onsite.filter(e=>(!fp||e.project===fp)&&(!fd||e.date===fd));
+  // Unique samples (by deliveryKey)
+  const uniq=[...new Set(f.map(e=>e.deliveryKey))].length;
+  const passed=f.filter(e=>e.result==="Pass").length;
+  kh("os-kh",pct(passed,f.length),99,"99% compliance",f.length,passed,"params passed");
+  const tb=document.getElementById("os-tb");
+  if(!f.length){tb.innerHTML=`<tr><td colspan="11" class="empty">No entries.</td></tr>`;return;}
+  tb.innerHTML=f.map(e=>{
+    const days=e.releasedDate&&e.testDate?Math.round((new Date(e.releasedDate)-new Date(e.testDate))/86400000):null;
+    const onT=days!==null&&days<=3;
     return `<tr>
-      <td><strong>${d}</strong></td>
-      <td>${[...new Set(r.map(x=>x.project))].join(", ")}</td>
-      <td>${am}</td><td>${pm}</td>
-      <td><span class="pill pgr">${r.length} truck${r.length!==1?"s":""}</span></td>
-      <td style="text-align:right"><strong>${fmt(tot)} T</strong></td>
-      <td style="font-size:11px;color:var(--muted)">${[...new Set(r.map(x=>x.mixType))].join(", ")}</td>
+      <td>${e.date}</td><td>${e.project}</td><td>${e.drNo}</td><td>${e.witness||"—"}</td>
+      <td>${e.parameter}</td><td>${P(e.result==="Pass","Pass","Fail")}</td>
+      <td>${e.testDate||"—"}</td><td>${e.releasedDate||"—"}</td>
+      <td>${days!==null?days+"d":"—"}</td>
+      <td>${e.releasedDate?P(onT,"On time","Late"):"<span style='font-size:11px;color:var(--mu)'>Pending</span>"}</td>
+      <td>${ROLE==="admin"?`<button class="btn br2 sm" onclick="openDel('onsite','${e.key}')">Del</button>`:""}</td>
     </tr>`;
   }).join("");
 };
 
-function renderProjects(){
-  const byP={};
-  entries.forEach(e=>(byP[e.project]=byP[e.project]||[]).push(e));
-  const grid=document.getElementById("pgrid");
-  const projs=Object.keys(byP).sort();
-  if(!projs.length){grid.innerHTML=`<div class="empty">No data yet.</div>`;return;}
-  grid.innerHTML=projs.map(p=>{
-    const r=byP[p],tot=r.reduce((s,x)=>s+x.volume,0),days=[...new Set(r.map(x=>x.date))].length;
-    const clients=[...new Set(r.map(x=>x.client).filter(Boolean))].join(", ")||"—";
-    const mixes=[...new Set(r.map(x=>x.mixType))];
-    return `<div class="scard">
-      <div class="sc-t">${p}</div><div class="sc-s">${clients}</div>
-      <div class="sc-st">
-        <div class="sc-sv"><div class="sv-v">${fmt(tot)} T</div><div class="sv-l">Total volume</div></div>
-        <div class="sc-sv"><div class="sv-v">${r.length}</div><div class="sv-l">Total trucks</div></div>
-        <div class="sc-sv"><div class="sv-v">${days}</div><div class="sv-l">Paving days</div></div>
-      </div>
-      <div>${mixes.map(m=>`<span class="mtag">${m}</span>`).join("")}</div>
-    </div>`;
-  }).join("");
-}
-
-// DELETE
-window.openDel=key=>{delKey=key;document.getElementById("del-modal").classList.add("open");};
-window.closeDel=()=>{delKey=null;document.getElementById("del-modal").classList.remove("open");};
-window.confirmDel=async()=>{
-  if(!delKey) return;
-  await remove(ref(db,`entries/${delKey}`));
-  closeDel(); toast("Entry deleted.");
+// 4. INTERNAL TESTING
+window.addInternal=async()=>{
+  const dk=document.getElementById("it-dl").value;
+  if(!dk){toast("Select a laying entry");return;}
+  const d=deliveries.find(x=>x.key===dk);
+  if(!d)return;
+  await push(ref(db,"internal"),{deliveryKey:dk,project:d.project,date:d.date,drNo:d.drNo,
+    hasSample:document.getElementById("it-has").value,
+    extraction:document.getElementById("it-ex").value,gradation:document.getElementById("it-gr").value,
+    gmm:document.getElementById("it-gm").value,stability:document.getElementById("it-st").value,
+    flow:document.getElementById("it-fl").value,remarks:document.getElementById("it-rem").value.trim(),
+    addedBy:CU.email,ts:Date.now()});
+  document.getElementById("it-dl").value="";
+  document.getElementById("it-rem").value="";
+  toast("Internal test added!");
+};
+window.renderInternal=()=>{
+  const fp=document.getElementById("it-fp").value,fd=document.getElementById("it-fd").value;
+  const f=internal.filter(e=>(!fp||e.project===fp)&&(!fd||e.date===fd));
+  const w=f.filter(e=>e.hasSample==="Yes").length;
+  kh("it-kh",pct(w,f.length),100,"100% coverage",f.length,w,"with sample");
+  const tb=document.getElementById("it-tb");
+  if(!f.length){tb.innerHTML=`<tr><td colspan="11" class="empty">No entries.</td></tr>`;return;}
+  const PK=["extraction","gradation","gmm","stability","flow"];
+  tb.innerHTML=f.map(e=>`<tr>
+    <td>${e.date}</td><td>${e.project}</td><td>${e.drNo}</td>
+    <td>${P(e.hasSample==="Yes","Yes","No")}</td>
+    ${e.hasSample==="Yes"
+      ?PK.map(k=>`<td>${P(e[k]==="Pass","P","F")}</td>`).join("")
+      :"<td>—</td><td>—</td><td>—</td><td>—</td><td>—</td>"}
+    <td>${e.remarks||"—"}</td>
+    <td>${ROLE==="admin"?`<button class="btn br2 sm" onclick="openDel('internal','${e.key}')">Del</button>`:""}</td>
+  </tr>`).join("");
 };
 
-// ADMIN: CREATE USER
+// 5. KPI DASHBOARD
+window.renderDash=()=>{
+  const mo=Number(document.getElementById("dash-mo").value);
+  document.getElementById("dash-lbl").textContent=`${MO[mo]} ${YR} — KPI snapshot`;
+
+  // Get deliveries this month
+  const dlMo=deliveries.filter(e=>new Date(e.date).getMonth()===mo);
+  const ptMo=plant.filter(e=>dlMo.some(d=>d.key===e.deliveryKey));
+  const osMo=onsite.filter(e=>dlMo.some(d=>d.key===e.deliveryKey));
+  const itMo=internal.filter(e=>dlMo.some(d=>d.key===e.deliveryKey));
+
+  // Plant KPI
+  const ptPass=ptMo.filter(e=>e.tempOk==="Pass"&&e.bleedOk==="Pass").length;
+  // Onsite KPI
+  const osPass=osMo.filter(e=>e.result==="Pass").length;
+  // On-time KPI (from onsite entries with releasedDate)
+  const otAll=osMo.filter(e=>e.releasedDate);
+  const otPass=otAll.filter(e=>{const d=Math.round((new Date(e.releasedDate)-new Date(e.testDate))/86400000);return d<=3;}).length;
+  // Internal KPI
+  const itPass=itMo.filter(e=>e.hasSample==="Yes").length;
+
+  const kpis=[
+    {ico:"🏭",lbl:"Plant Testing",rate:pct(ptPass,ptMo.length),tg:99,total:ptMo.length,note:"Temp + Bleed per truck"},
+    {ico:"🚧",lbl:"On-Site Testing",rate:pct(osPass,osMo.length),tg:99,total:osMo.length,note:"Per parameter"},
+    {ico:"⏱️",lbl:"On-Time Testing",rate:pct(otPass,otAll.length),tg:100,total:otAll.length,note:"Within 3 days of test date"},
+    {ico:"📋",lbl:"Internal Testing",rate:pct(itPass,itMo.length),tg:100,total:itMo.length,note:"Per batch coverage"},
+  ];
+  document.getElementById("dash-kpis").innerHTML=kpis.map(k=>{
+    const col=sc(k.rate,k.tg),bg=sb(k.rate,k.tg),has=k.total>0;
+    return `<div class="dc">
+      <div class="dc-ico">${k.ico}</div>
+      <div class="dc-lbl">${k.lbl}</div>
+      <div class="dc-rate" style="color:${col}">${has?k.rate+"%":"—"}</div>
+      <div class="dc-note" style="color:${col}">${has?(k.rate>=k.tg?"✓ On target":k.rate>=k.tg-5?"⚠ Near miss":"✗ Below target"):k.note}</div>
+      <div class="pb"><div class="pbf" style="width:${Math.min(k.rate,100)}%;background:${col}"></div></div>
+      <div class="dc-meta"><span>${k.total} entries</span><span>Target: ${k.tg}%</span></div>
+    </div>`;
+  }).join("");
+
+  // On-Time detail table
+  const otTb=document.getElementById("dash-ot");
+  if(!osMo.length){otTb.innerHTML=`<tr><td colspan="8" class="empty">No on-site entries this month.</td></tr>`;}
+  else{
+    otTb.innerHTML=osMo.map(e=>{
+      const days=e.releasedDate&&e.testDate?Math.round((new Date(e.releasedDate)-new Date(e.testDate))/86400000):null;
+      const ok=days!==null&&days<=3;
+      return `<tr>
+        <td>${e.date}</td><td>${e.project}</td><td>${e.drNo}</td><td>${e.parameter}</td>
+        <td>${e.testDate||"—"}</td>
+        <td><input type="date" value="${e.releasedDate||""}" style="padding:4px 8px;font-size:12px;width:130px"
+          onchange="saveOsRelDate('${e.key}',this.value)"/></td>
+        <td>${days!==null?days+"d":"—"}</td>
+        <td>${e.releasedDate?P(ok,"On time","Late ("+days+"d)"):"<span style='font-size:11px;color:var(--mu)'>Pending</span>"}</td>
+      </tr>`;
+    }).join("");
+  }
+
+  // Today deliveries
+  const tod=deliveries.filter(e=>e.date===TODAY).slice(0,8);
+  document.getElementById("dash-today").innerHTML=tod.length
+    ?tod.map(e=>`<tr><td>${e.project}</td><td>${e.drNo}</td><td>${e.truckNo}</td><td><span class="pill p${e.shift.toLowerCase()}">${e.shift}</span></td><td style="text-align:right">${fmt(e.volume)} T</td></tr>`).join("")
+    :`<tr><td colspan="5" class="empty">No deliveries today.</td></tr>`;
+
+  // Onsite this month
+  document.getElementById("dash-os").innerHTML=osMo.length
+    ?osMo.slice(0,10).map(e=>`<tr><td>${e.project}</td><td>${e.drNo}</td><td>${e.parameter}</td><td>${P(e.result==="Pass","Pass","Fail")}</td></tr>`).join("")
+    :`<tr><td colspan="4" class="empty">No samples this month.</td></tr>`;
+};
+
+// Save released date directly from dashboard
+window.saveOsRelDate=async(key,val)=>{
+  await set(ref(db,`onsite/${key}/releasedDate`),val);
+  toast("Released date saved!");
+};
+
+// DELETE
+window.openDel=(col,key)=>{delInfo={col,key};document.getElementById("del-modal").classList.add("open");};
+window.closeDel=()=>{delInfo=null;document.getElementById("del-modal").classList.remove("open");};
+window.confirmDel=async()=>{if(!delInfo)return;await remove(ref(db,`${delInfo.col}/${delInfo.key}`));closeDel();toast("Deleted.");};
+
+// ADMIN
 window.createUser=async()=>{
-  const email=document.getElementById("nu-email").value.trim(),
-    pass=document.getElementById("nu-pass").value,
-    name=document.getElementById("nu-name").value.trim(),
-    role=document.getElementById("nu-role").value;
+  const email=document.getElementById("nu-e").value.trim(),pass=document.getElementById("nu-p").value,
+    name=document.getElementById("nu-n").value.trim(),role=document.getElementById("nu-r").value;
   const msg=document.getElementById("cu-msg");
-  if(!email||!pass){msg.textContent="Email and password required.";msg.style.color="var(--red)";return;}
+  if(!email||!pass){msg.textContent="Email and password required.";msg.style.color="var(--r)";return;}
   try{
     const cred=await createUserWithEmailAndPassword(auth,email,pass);
     await set(ref(db,`users/${cred.user.uid}`),{email,name,role,createdAt:Date.now()});
-    msg.textContent=`✓ User ${email} created!`;msg.style.color="var(--green-dark)";
-    ["nu-email","nu-pass","nu-name"].forEach(id=>document.getElementById(id).value="");
+    msg.textContent=`✓ ${email} created!`;msg.style.color="var(--gd)";
+    ["nu-e","nu-p","nu-n"].forEach(id=>document.getElementById(id).value="");
     toast("User created!");
-  }catch(e){msg.textContent=e.message;msg.style.color="var(--red)";}
+  }catch(e){msg.textContent=e.message;msg.style.color="var(--r)";}
 };
-
 function renderUsers(){
-  const tb=document.getElementById("utbody"), list=Object.values(users);
-  if(!list.length){tb.innerHTML=`<tr><td colspan="4" class="empty">No users yet.</td></tr>`;return;}
+  const tb=document.getElementById("u-tb"),list=Object.values(users);
+  if(!list.length){tb.innerHTML=`<tr><td colspan="4" class="empty">No users.</td></tr>`;return;}
   tb.innerHTML=list.map(u=>`<tr>
     <td>${u.email}</td><td>${u.name||"—"}</td>
-    <td><span class="rbadge ${u.role==="admin"?"radmin":"ruser"}">${u.role==="admin"?"Admin":"User"}</span></td>
+    <td><span class="rbadge ${u.role==="admin"?"ra":"ru"}">${u.role==="admin"?"Admin":"User"}</span></td>
     <td>${u.uid!==CU.uid
-      ?`<button class="btn sm ${u.role==="admin"?"bgr":"bb"}" onclick="toggleRole('${u.uid}','${u.role}')">
-          ${u.role==="admin"?"→ User":"→ Admin"}</button>`
-      :`<span style="font-size:11px;color:var(--muted)">(you)</span>`}
-    </td>
+      ?`<button class="btn sm ${u.role==="admin"?"bgr":"bb"}" onclick="toggleRole('${u.uid}','${u.role}')">${u.role==="admin"?"→ User":"→ Admin"}</button>`
+      :`<span style="font-size:11px;color:var(--mu)">(you)</span>`}</td>
   </tr>`).join("");
 }
-
-window.toggleRole=async(uid,cur)=>{
-  const nr=cur==="admin"?"user":"admin";
-  await set(ref(db,`users/${uid}/role`),nr);
-  toast(`Role updated to ${nr}.`);
-};
+window.toggleRole=async(uid,cur)=>{await set(ref(db,`users/${uid}/role`),cur==="admin"?"user":"admin");toast("Role updated.");};
 
 // TABS
-window.switchTab=(tab,btn)=>{
-  ["entries","daily","projects","admin"].forEach(t=>document.getElementById(`tab-${t}`).style.display=t===tab?"block":"none");
-  document.querySelectorAll(".tbtn").forEach(b=>b.classList.remove("on"));
+window.goTab=(tab,btn)=>{
+  ["dl","pt","os","it","dash","adm"].forEach(t=>{
+    const el=document.getElementById(`tab-${t}`);if(el)el.style.display=t===tab?"block":"none";
+  });
+  document.querySelectorAll(".nt").forEach(b=>b.classList.remove("on"));
   btn.classList.add("on");
-  document.getElementById("form-card").style.display=tab==="admin"?"none":"block";
+  if(tab==="dash") renderDash();
 };
 </script>
 </body>
